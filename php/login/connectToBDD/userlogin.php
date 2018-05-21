@@ -17,6 +17,8 @@
 			$_SESSION['UserTel']=$user->getUserTel();
             $_SESSION['UserNumAdherent']=$user->getUserNumAdherent();
 			$_SESSION['UserIdAbonnement']=$user->getUserIdAbonnement();
+			$_SESSION['UserIdAbonnementTexte']=$user->getUserIdAbonnementTexte();
+			$_SESSION['UserIdAbonnementTarif']=$user->getUserIdAbonnementTarif();
 			$_SESSION['UserDateAdhesion']=$user->getUserDateAdhesion();
 			$_SESSION['UserRole']=$user->getUserRole();
 			$_SESSION['UserBloque']=$user->getUserBloque();

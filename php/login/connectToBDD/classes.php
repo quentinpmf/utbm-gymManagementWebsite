@@ -1,7 +1,7 @@
 <?php
 
 class user{
-    private $UserId, $UserEmail, $UserPassword, $UserNom, $UserPrenom, $UserAdress, $UserCP, $UserVille, $UserTel, $UserIdAbonnement, $UserNumAdherent, $UserDateAdhesion, $UserRole, $UserBloque;
+    private $UserId, $UserEmail, $UserPassword, $UserNom, $UserPrenom, $UserAdress, $UserCP, $UserVille, $UserTel, $UserIdAbonnementTexte, $UserIdAbonnementTarif, $UserIdAbonnement, $UserNumAdherent, $UserDateAdhesion, $UserRole, $UserBloque;
 
 	/*Création de fonction pour allez chercher les informations */
 	
@@ -85,6 +85,22 @@ class user{
         $this->UserIdAbonnement=$UserIdAbonnement;
     }
 
+    //UserIdAbonnementTexte
+    public function getUserIdAbonnementTexte(){
+        return $this->UserIdAbonnementTexte;
+    }
+    public function setUserIdAbonnementTexte($UserIdAbonnementTexte){
+        $this->UserIdAbonnementTexte=$UserIdAbonnementTexte;
+    }
+
+    //UserIdAbonnementTarif
+    public function getUserIdAbonnementTarif(){
+        return $this->UserIdAbonnementTarif;
+    }
+    public function setUserIdAbonnementTarif($UserIdAbonnementTarif){
+        $this->UserIdAbonnementTarif=$UserIdAbonnementTarif;
+    }
+
     //UserNumAdherent
     public function getUserNumAdherent(){
         return $this->UserNumAdherent;
@@ -141,12 +157,32 @@ class user{
                 $this->setUserVille($data['ville']);
                 $this->setUserTel($data['telephone']);
                 $this->setUserNumAdherent($data['num_adherent']);
-                //TODO QUENTIN : récuperer infos table abonnements_utilisateurs
                 $this->setUserRole($data['role']);
                 $this->setUserBloque($data['bloque']);
-                header("Location: ../../../index.php?connect=ok");      /*Bien identifié la session est créée*/
-                return true;
             }
+
+            //récuperer infos table abonnements_utilisateurs
+            $req2=$bdd->prepare("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur=:UserId");
+            $req2->execute(array(
+                'UserId'=>$this->getUserId()
+            ));
+            while($data2=$req2->fetch()){
+                $this->setUserIdAbonnement($data2['id_abonnement']);
+                $this->setUserDateAdhesion($data2['date_abonnement']);
+            }
+
+            //récuperer infos table abonnements
+            $req3=$bdd->prepare("SELECT * FROM abonnements WHERE id=:UserIdAbonnement");
+            $req3->execute(array(
+                'UserIdAbonnement'=>$this->getUserIdAbonnement()
+            ));
+            while($data3=$req3->fetch()){
+                $this->setUserIdAbonnementTexte($data3['texte']);
+                $this->setUserIdAbonnementTarif($data3['tarif']);
+            }
+
+            header("Location: ../../../index.php?connect=ok");      /*Bien identifié la session est créée*/
+            return true;
         }
         
     }
