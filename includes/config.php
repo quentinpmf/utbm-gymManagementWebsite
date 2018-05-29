@@ -1,6 +1,6 @@
 <?php
 if (!defined('ROOT_DIR')) {
-    define('ROOT_DIR', '/projetTA70_git');
+    define('ROOT_DIR', '/projetTA70');
 }
 include 'includeCSSandJS.php';
 ?>
