@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Mer 16 Mai 2018 à 14:25
--- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 29 mai 2018 à 06:12
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -34,7 +36,41 @@ CREATE TABLE IF NOT EXISTS `abonnements` (
   `texte` varchar(50) NOT NULL,
   `tarif` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `abonnements`
+--
+
+INSERT INTO `abonnements` (`id`, `texte`, `tarif`) VALUES
+(1, 'Abonnement Etudiant', 19.99),
+(2, 'Abonnement Normal', 29.99),
+(3, 'Abonnement Elite', 39.99);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `abonnements_utilisateurs`
+--
+
+DROP TABLE IF EXISTS `abonnements_utilisateurs`;
+CREATE TABLE IF NOT EXISTS `abonnements_utilisateurs` (
+  `id_abonne` int(11) NOT NULL AUTO_INCREMENT,
+  `id_abonnement` int(11) NOT NULL,
+  `id_utilisateur` int(11) NOT NULL,
+  `date_abonnement` date NOT NULL,
+  PRIMARY KEY (`id_abonne`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `abonnements_utilisateurs`
+--
+
+INSERT INTO `abonnements_utilisateurs` (`id_abonne`, `id_abonnement`, `id_utilisateur`, `date_abonnement`) VALUES
+(1, 1, 1, '2018-05-18'),
+(2, 3, 2, '2018-05-18'),
+(3, 3, 3, '2018-05-18'),
+(4, 2, 5, '2018-05-21');
 
 -- --------------------------------------------------------
 
@@ -169,20 +205,21 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `cp` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `ville` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `telephone` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `id_abonnement` int(11) NOT NULL,
   `num_adherent` int(11) NOT NULL,
-  `date_adhesion` date NOT NULL,
   `role` int(11) NOT NULL,
   `bloque` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Contenu de la table `utilisateurs`
+-- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id`, `email`, `password`, `nom`, `prenom`, `adresse`, `cp`, `ville`, `telephone`, `id_abonnement`, `num_adherent`, `date_adhesion`, `role`, `bloque`) VALUES
-(1, 'dsqjdjqsdkqsjdkqs@fdsfds.fr', '', 'Monrouzeau', 'Thibaut', '', '', '', '', 0, 0, '0000-00-00', 0, 0);
+INSERT INTO `utilisateurs` (`id`, `email`, `password`, `nom`, `prenom`, `adresse`, `cp`, `ville`, `telephone`, `num_adherent`, `role`, `bloque`) VALUES
+(1, 'quentinpmf@gmail.com', 'a984197e1420b7ea4006a75e7dd4b55a4bc04263', 'Boudinot', 'Quentin', '1 avenue charles bohn, appartement 149', '90000', 'Belfort', '0672755858', 1, 1, 0),
+(4, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Admin', 'Compte', '', '', '', '', 0, 4, 0),
+(5, 'abdelrazak@gmail.com', 'a984197e1420b7ea4006a75e7dd4b55a4bc04263', 'Abdel', 'Razak', 'adresse', '90000', 'Belfort', '0303030303', 4, 1, 0);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
