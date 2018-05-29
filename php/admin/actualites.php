@@ -16,26 +16,31 @@ include '../../includes/config.php';
 <section class="section-gap">
     <div class="title text-center">
 
-        <h1 style="margin-top: 70px" class="mb-10"><u>Facturation</u></h1>
+        <h1 style="margin-top: 70px" class="mb-10"><u>Actualités</u></h1>
 
-        <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" align="center">
+        <?php if(isset($_GET['creation']) && $_GET['creation'] == "ok"){ ?>
+            <div class="alert alert-success" role="alert">
+                L'actualité a été créée :)
+            </div>
+        <?php } ?>
 
-        <?php
-        //récuperer infos table abonnements_utilisateurs
-        $allUtilisateurs=$bdd->prepare("SELECT * FROM utilisateurs WHERE id!=:UserId");
-        $allUtilisateurs->execute(array(
-            'UserId'=>$_SESSION['UserId']
-        ));
-        while($data=$allUtilisateurs->fetch()){
-            ?>
+        <form enctype="multipart/form-data" method="post" action="add_actualite.php">
+            <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" cellspacing="0" cellpadding="2" border="0" width="400" align="center">
                 <tr>
-                    <td align="left"><?php echo($data['nom']." ".$data['prenom'])?></td>
-                    <td><a href="generer_pdf.php">Générer une facture</a></td>
+                    <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" required autofocus></td>
                 </tr>
-            <?php
-        }
-        ?>
-
+                <tr>
+                    <td colspan="2"><textarea rows="10" cols="100" name="description" placeholder="Votre texte ici..." required></textarea></td>
+                </tr>
+                <tr>
+                    <td align="left"><input type="file" name="image"></td>
+                </tr>
+                <tr>
+                    <td align="left"><input type="checkbox" name="publier" checked> Publier maintenant</td>
+                    <td align="right"><input type="submit" name="btn_publier" value="Enregistrer"></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </section>
 </body>
