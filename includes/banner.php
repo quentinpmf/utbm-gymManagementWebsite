@@ -39,7 +39,7 @@
                     }
                     ?>
 
-                    <a style="display:inline-block" href="<?php echo ROOT_DIR.$include ?>"><div class="banner_utilisateur"><?php echo $_SESSION['UserPrenom']." ".$_SESSION['UserNom']." (".$_SESSION['UserRole'].") " ?></div></a>
+                    <a style="display:inline-block" href="<?php echo ROOT_DIR.$include ?>"><div class="banner_utilisateur"><?php echo utf8_encode($_SESSION['UserPrenom']." ".$_SESSION['UserNom']." (".$_SESSION['UserRole'].") "); ?></div></a>
                     <?php
                 }
                 else
