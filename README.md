@@ -9,5 +9,5 @@
   <li>Gestion du planning coach/adhérent</li>
   <li>Création/génération des factures</li>
 </ul>
-<br><br>
+<br>
 <b>Language utilisé </b>: PHP/MySQL
