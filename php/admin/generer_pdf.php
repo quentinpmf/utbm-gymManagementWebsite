@@ -1,6 +1,8 @@
 <?php
-
 require('../../includes/fpdf/fpdf.php');
+require('../login/connectToBDD/conn.php');
+
+date_default_timezone_set('Europe/Paris');
 
 //je génére la facture
 class PDF extends FPDF
@@ -20,30 +22,60 @@ class PDF extends FPDF
     function Header()
     {
         require('../login/connectToBDD/conn.php');
+        $id_utilisateur = $_GET['userid'];
 
-        $id_commande=123;
-        $code_commande='FACT_'.$id_commande;
-
-        $chiffres = $bdd->query("SELECT * FROM commandes WHERE ID_commande='$id_commande'");
-        while ($donnees_chiffres = $chiffres->fetch())
+        $abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
+        while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
         {
-            $ID_client=htmlspecialchars($donnees_chiffres['ID_client']);
+            $id_abonne = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonne']);
+            $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
+            $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
+            $date_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['date_abonnement']);
 
-            $client = $bdd->query("SELECT * FROM clients WHERE ID_client='$ID_client'");
-            while ($donnees_client = $client->fetch())
+            $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
+            while ($donnees_abonnement = $abonnement->fetch())
             {
-                $CIVILITE_client=htmlspecialchars($donnees_client['CIVILITE_client']);
-                $NOM_client=htmlspecialchars($donnees_client['NOM_client']); //je stocke dans des variables les infos obtenus
-                $PRENOM_client=htmlspecialchars($donnees_client['PRENOM_client']);
-                $PAYS_client=htmlspecialchars($donnees_client['PAYS_client']);
-                $ADRESSE_client=htmlspecialchars($donnees_client['ADRESSE_client']);
-                $CODEPOSTAL_client=htmlspecialchars($donnees_client['CODEPOSTAL_client']); //je stocke dans des variables les infos obtenus
-                $VILLE_client=htmlspecialchars($donnees_client['VILLE_client']);
+                $abonnement_texte = htmlspecialchars($donnees_abonnement['texte']);
+                $abonnement_tarif = htmlspecialchars($donnees_abonnement['tarif']);
+            }
+
+            $user = $bdd->query("SELECT * FROM utilisateurs WHERE id='$id_utilisateur'");
+            while ($donnees_user = $user->fetch())
+            {
+                $user_id = htmlspecialchars($donnees_user['id']);
+                $user_nom = htmlspecialchars($donnees_user['nom']);
+                $user_prenom = htmlspecialchars($donnees_user['prenom']);
+                $user_adresse = htmlspecialchars($donnees_user['adresse']);
+                $user_cp = htmlspecialchars($donnees_user['cp']);
+                $user_ville = htmlspecialchars($donnees_user['ville']);
+                $user_tel = htmlspecialchars($donnees_user['telephone']);
             }
         }
 
+        $code_commande = 'FACT_'.$id_abonnement;
+        $chemin = $code_commande.'_'.date("Y-m-d").'.pdf';
+        $date_jour = date("Y-m-d");
+
+        $factures = $bdd->query("SELECT COUNT(*) As 'nbFactureDuJour' FROM factures WHERE id_user='$user_id' AND date_creation='$date_jour'");
+        while ($donnees_factures = $factures->fetch())
+        {
+            $nbFactureDuJour = htmlspecialchars($donnees_factures['nbFactureDuJour']);
+        }
+
+        if($nbFactureDuJour == 0)
+        {
+            $req=$bdd->prepare("INSERT INTO factures(id_user,statut,chemin,date_creation,date_validation) VALUES (:id_user,:statut,:chemin,:date_creation,:date_validation)");
+            $req->execute(array(
+                'id_user'=>$user_id,
+                'statut'=>0,
+                'chemin'=>$chemin,
+                'date_creation'=>$date_jour,
+                'date_validation'=>NULL
+            ));
+        }
+
         // Cell(largeur,  hauteur,  'texte',  bordure(0 ou 1),  ln(indique ou se place la valeur suivante 0:droite,1:new ligne,2:en dessous), alignement (L, C, R)              // Logo
-        $this->Image('../annexes/img/logo.png',15,6,30);
+        $this->Image('../../img/logo_fit.png',15,6,30);
 
         // Facture
         $this->SetFont('Arial','B',12);
@@ -54,13 +86,13 @@ class PDF extends FPDF
         $this->Cell(80,7,''.utf8_decode('N° : '.$code_commande.''),0,1,'R');
 
         // date
-        $this->Cell(190,7,'du '.date("d/m/Y").'',0,1,'R');
+        $this->Cell(190,7,''.utf8_decode('du '.$date_jour),0,1,'R');
 
         // passe la ligne
-        $this->ln(10);
+        $this->ln(15);
 
         // entreprise
-        $this->Cell(40,5,'Gestion Production',0,0,'L');
+        $this->Cell(40,5,'Fitness Club',0,0,'C');
 
         // destinataire
         $this->Cell(50);
@@ -69,30 +101,30 @@ class PDF extends FPDF
 
         // location
         $this->SetFont('Arial','',10);
-        $this->Cell(40,5,'2 rue du haut des '.utf8_decode('étages'),0,0,'L');
+        $this->Cell(40,5,'12 rue Thierry Mieg',0,0,'C');
 
         //nom destinataire
         $this->Cell(50);
-        $this->Cell(100,5,$CIVILITE_client." ".$NOM_client." ".$PRENOM_client,'LR',1,'C');
+        $this->Cell(100,5,$user_nom." ".$user_prenom,'LR',1,'C');
 
         // ville
-        $this->Cell(40,5,'88000 EPINAL',0,0,'C');
+        $this->Cell(40,5,'90000 BELFORT',0,0,'C');
 
         //adresse destinataire
         $this->Cell(50);
-        $this->Cell(100,5,$ADRESSE_client,'LR',1,'C');
+        $this->Cell(100,5,$user_adresse,'LR',1,'C');
 
         // tel
-        $this->Cell(40,5,'Tel. : 03.29.81.21.81',0,0,'C');
+        $this->Cell(40,5,'Tel. 03.84.58.30.00',0,0,'C');
 
         //ville destinataire
         $this->Cell(50);
         $this->SetFont('Arial','B',10);
-        $this->Cell(100,5,$CODEPOSTAL_client." ".$VILLE_client,'LR',1,'C');
+        $this->Cell(100,5,$user_cp." ".$user_ville,'LR',1,'C');
 
         // fax
         $this->SetFont('Arial','',10);
-        $this->Cell(40,5,'Fax. : 03.29.81.21.98',0,0,'C');
+        $this->Cell(40,5,'Site. utbm.fr',0,0,'C');
 
         //espace
         $this->Cell(50);
@@ -102,18 +134,22 @@ class PDF extends FPDF
         $this->ln(10);
     }
 
-    function FancyTable($header_tableau, $data)
+    function FancyTable($header_tableau)
     {
         // Couleurs, épaisseur du trait et police grasse
-        $this->SetFillColor(245,145,31);
+        $this->SetFillColor(185,54,64);
         $this->SetTextColor(255);
         $this->SetDrawColor(0,0,0);
         $this->SetLineWidth(.3);
         $this->SetFont('','B');
         // En-tête
-        $w = array(20, 110, 30, 30);
-        for($i=0;$i<count($header_tableau);$i++)
-            $this->Cell($w[$i],7,$header_tableau[$i],1,0,'C',true);
+        $w = array(160, 30);
+
+        $this->Cell($w[0],7,$header_tableau[0],1,0,'L',true);
+
+        $this->SetFillColor(59,95,171); //on change la couleur pour la deuxieme colonne
+        $this->Cell($w[1],7,$header_tableau[1],1,0,'R',true);
+
         $this->Ln();
         // Restauration des couleurs et de la police
         $this->SetFillColor(56,144,182);
@@ -121,15 +157,6 @@ class PDF extends FPDF
         $this->SetFont('');
         // Données
         $fill = false;
-        foreach($data as $row)
-        {
-            $this->Cell($w[0],6,utf8_decode($row[0]),'LR',0,'C',$fill);
-            $this->Cell($w[1],6,utf8_decode($row[1]),'LR',0,'L',$fill);
-            $this->Cell($w[2],6,number_format(utf8_decode($row[2]),2,',',' '),'LR',0,'R',$fill);
-            $this->Cell($w[3],6,number_format(utf8_decode($row[3]),2,',',' '),'LR',0,'R',$fill);
-            $this->Ln();
-            $fill = !$fill;
-        }
         // Trait de terminaison
         $this->Cell(array_sum($w),0,'','T');
         $this->Cell(0,0,'',1,1,'C');
@@ -140,47 +167,28 @@ class PDF extends FPDF
     {
         require('../login/connectToBDD/conn.php');
 
-        $id_commande=$_GET['commande'];
-        $code_commande='FACT_'.$id_commande;
-
-        $chiffres = $bdd->query("SELECT * FROM commandes WHERE ID_commande='$id_commande'");
-        while ($donnees_chiffres = $chiffres->fetch())
+        $id_utilisateur = $_GET['userid'];
+        $abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
+        while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
         {
-            $TOTALHT_commande=htmlspecialchars($donnees_chiffres['TOTALHT_commande']);
-            $TOTALTTC_commande=htmlspecialchars($donnees_chiffres['TOTALTTC_commande']);
-            $TVA_commande=htmlspecialchars($donnees_chiffres['TVA_commande']);
+            $id_abonne = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonne']);
+            $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
+            $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
+            $date_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['date_abonnement']);
+
+            $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
+            while ($donnees_abonnement = $abonnement->fetch())
+            {
+                $abonnement_texte = htmlspecialchars($donnees_abonnement['texte']);
+                $abonnement_tarif = htmlspecialchars($donnees_abonnement['tarif']);
+            }
         }
 
-        // net ht
-        $this->SetFont('Arial','',10);
-        $this->Cell(130);
-        $this->Cell(20,7,'Montant HT :','LB',0,'L');
-
-        // tarif net ht
-        $this->Cell(40,7,''.$TOTALHT_commande.chr(128),'BR',1,'R');
-
-        // tva 20%
-        $this->Cell(130);
-        $this->Cell(20,7,'TVA (20,0 %) :','LB',0,'L');
-
-        // tarif tva 20%
-        $this->Cell(40,7,''.$TVA_commande.chr(128),'BR',1,'R');
-
-        // ttc
-        $this->SetFont('Arial','B',12);
-        $this->Cell(130);
-        $this->Cell(20,7,'Montant TTC : ','LB',0,'L');
-
-        // tarif ttc
-        $this->Cell(40,7,''.$TOTALTTC_commande.chr(128),'BR',1,'R');
-
-        // net a payer
-        $this->SetFont('Arial','B',13);
-        $this->Cell(130);
-        $this->Cell(20,7,'NET A PAYER :','LB',0,'L');
+        // tarif net a payer
+        $this->Cell(160,7,''.$abonnement_texte.utf8_decode(' 1 mois '),'LBR',0,'L');
 
         // tarif net a payer
-        $this->Cell(40,7,''.$TOTALTTC_commande.chr(128),'BR',1,'R');
+        $this->Cell(30,7,''.$abonnement_tarif.chr(128),'BR',1,'R');
 
         //.chr(128) = €
     }
@@ -190,22 +198,35 @@ class PDF extends FPDF
 ob_get_clean(); //je vide le tampon de sortie
 $pdf = new PDF();
 
-$id_commande=123;
-$code_commande='FACT_'.$id_commande;
+$id_utilisateur = $_GET['userid'];
+$abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
+while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
+{
+    $id_abonne = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonne']);
+    $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
+    $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
+    $date_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['date_abonnement']);
+
+    $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
+    while ($donnees_abonnement = $abonnement->fetch())
+    {
+        $abonnement_texte = htmlspecialchars($donnees_abonnement['texte']);
+        $abonnement_tarif = htmlspecialchars($donnees_abonnement['tarif']);
+    }
+}
+
+$code_commande = 'FACT_'.$id_abonnement;
+$chemin = $code_commande.'_'.date("Y-m-d").'.pdf';
 
 // Titres des colonnes
-$header_tableau = array(utf8_decode('Qté'), utf8_decode('Désignation'), 'P.U. HT ('.chr(128).')', 'Total HT (' .chr(128).')');
+$header_tableau = array(utf8_decode('Désignation'), 'Total TTC');
 // Chargement des données
-$data = $pdf->LoadData('facture.txt');
-
 $pdf->AliasNbPages(); // Define an alias for total number of pages
 $pdf->AddPage(); // Start a new page - contient header() / footer()
 $pdf->SetFont('Times','',12); //police
-$pdf->FancyTable($header_tableau,$data); //corps du devis (tableau+données)
-$pdf->Output('../docs_client/FACT/'.$code_commande.'.pdf','F');
-
-$chemin='../docs_client/FACT/'.$code_commande.'.pdf';
+$pdf->FancyTable($header_tableau); //corps du devis (tableau+données)
+$chemin=$_SERVER['DOCUMENT_ROOT'].'projetTA70/docs_client/FACT/'.$chemin;
+$pdf->Output($chemin,'F');
 ob_get_clean(); //je vide le tampon de sortie
 $pdf->Output($chemin,'I'); // 'D' pour dowload browser
-
 ?>
