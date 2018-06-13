@@ -15,28 +15,33 @@ include '../../includes/config.php';
     <section class="section-gap">
         <div class="title text-center">
 
-            <h1 class="mb-10">Authentification</h1>
+            <h1 class="mb-10"><u>Authentification</u></h1>
 
             <?php if(isset($_GET['error'])){ ?>
-                <span style="color:red">Mauvais Identifiants :( </span>
+                <div class="alert alert-danger" role="alert">
+                    Mauvais Identifiants :(
+                </div>
             <?php } ?>
 
-            <form method="post" action="../code_connect/userlogin.php">
+            <form method="post" action="connectToBDD/userlogin.php">
 
-                <table align="center">
+                <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" align="center">
                     <tr>
                         <td align="left" width="40%">Email</td>
-                        <td><input type="text" name="login_email"/></td>
+                        <td><input type="text" name="login_email" required/></td>
                     </tr>
                     <tr>
                         <td align="left" width="40%">Mot de passe</td>
-                        <td><input type="password" name="login_password"/></td>
+                        <td><input type="password" name="login_password" required/></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="right"><input align="center" type="submit" name="Connexion" value="Connexion"></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="right"><a href="signup.php"><font color="orange">S'inscrire</font></a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right"><a href="forget_mdp.php"><font color="green">Mot de passe oublié?</font></a></td>
                     </tr>
                 </table>
 
