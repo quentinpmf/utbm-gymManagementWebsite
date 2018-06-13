@@ -9,7 +9,6 @@ include '../../includes/config.php';
 date_default_timezone_set('Europe/Paris');
 session_start();
 
-var_dump($_FILES);
 
 if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== ""))
 {

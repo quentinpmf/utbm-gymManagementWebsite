@@ -52,23 +52,33 @@ include '../../includes/config.php';
                     echo "<td>".$data['date_creation']."</td>";
                     echo "<td>".$data['nom_auteur']." ".$data['prenom_auteur']."</td>";
                     echo "<td>".utf8_encode($data['titre'])."</td>";
-                    echo '<td><img src="../../img/actualites/'.$data['image'].'" height="50" width="100"></td>';
+                    echo '<td><img src="../../img/actualites/'.$data['image'].'" height="60" width="100"></td>';
                     echo "<td>".utf8_encode(substr($data['description'], 0, 75))."...</td>";
-                        echo "<td>";
-                            if($data['publie'] == 1)
-                             {
-                                echo '<a href="actualite_publication.php?action=depublier&id='.$data["id"].'">';
-                                    echo '<input type="submit" name="btn_depublier" value="Dépublier" style="background-color:#BA0101;color:#FFFFFF;padding:6px 0 6px 0;font:Bold 13px Arial;width:90px;border-radius:2px;border:none">';
-                                 echo '</a>';
-                             }
-                             else
-                             {
-                                 echo '<a href="actualite_publication.php?action=publier&id='.$data["id"].'">';
-                                    echo '<input type="submit" name="btn_publier" value="Publier" style="background-color:#069B37;color:#FFFFFF;padding:6px 0 6px 0;font:Bold 13px Arial;width:90px;border-radius:2px;border:none">';
-                                 echo '</a>';
-                             }
-                        echo "</td>";
-                echo "</tr>";
+                    echo "<td>";
+                        if($data['publie'] == 1)
+                         {
+                            echo '<a href="actualite_publie_modif.php?action=depublier&id='.$data["id"].'">';
+                                echo '<input type="submit" name="btn_depublier" value="Dépublier" style="background-color:#8F8282;color:#FFFFFF;padding:6px 0 6px 0;font:Bold 13px Arial;width:90px;border-radius:2px;border:none">';
+                             echo '</a>';
+                         }
+                         else
+                         {
+                             echo '<a href="actualite_publie_modif.php?action=publier&id='.$data["id"].'">';
+                                echo '<input type="submit" name="btn_publier" value="Publier" style="background-color:#069B37;color:#FFFFFF;padding:6px 0 6px 0;font:Bold 13px Arial;width:90px;border-radius:2px;border:none">';
+                             echo '</a>';
+                         }
+                    echo "</td>";
+                    echo "<td>";
+                        echo '<a href="actualite_modification.php?id='.$data["id"].'">';
+                            echo '<img src="../../img/pencil-512.png">';
+                        echo '</a>';
+                    echo "</td>";
+                    echo "<td>";
+                        echo '<a href="actualite_suppression.php?id='.$data["id"].'">';
+                            echo '<img src="../../img/trash-circle-red-512.png">';
+                        echo '</a>';
+                    echo "</td>";
+                    echo "</tr>";
             }
             echo "</table>";
         ?>
