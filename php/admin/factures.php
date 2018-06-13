@@ -32,8 +32,8 @@ include '../../includes/config.php';
                         <tr>
                             <td align="left"><?php echo($data['nom']." ".$data['prenom'])?></td>
                             <td align="left">
-                                <select name="select_factures">
-
+                                <select name="select_factures" onchange="if(this.value) window.location.href='/projetTA70/docs_client/FACT/'+this.value+''">
+                                    <option value="" selected></option>
                                     <?php
                                         $id_user = $data['id'];
                                         $factures = $bdd->query("SELECT * FROM factures WHERE id_user='$id_user'");
@@ -43,7 +43,7 @@ include '../../includes/config.php';
                                             $chemin = htmlspecialchars($donnees_factures['chemin']);
                                             $date_creation = htmlspecialchars($donnees_factures['date_creation']);
                                             $date_validation = htmlspecialchars($donnees_factures['date_validation']);
-                                            echo("<option>"."Facture du ".$date_creation."</option>");
+                                            echo("<option value='$chemin'>"."Facture du ".$date_creation."</option>");
                                         }
                                     ?>
 
