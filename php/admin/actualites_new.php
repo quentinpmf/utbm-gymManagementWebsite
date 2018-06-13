@@ -16,15 +16,9 @@ include '../../includes/config.php';
 <section class="section-gap">
     <div class="title text-center">
 
-        <h1 style="margin-top: 70px" class="mb-10"><u>Actualités</u></h1>
+        <h1 style="margin-top: 70px" class="mb-10"><u>Nouvelle Actualité</u></h1>
 
-        <?php if(isset($_GET['creation']) && $_GET['creation'] == "ok"){ ?>
-            <div class="alert alert-success" role="alert">
-                L'actualité a été créée :)
-            </div>
-        <?php } ?>
-
-        <form enctype="multipart/form-data" method="post" action="add_actualite.php">
+        <form enctype="multipart/form-data" method="post" action="actualite_add.php">
             <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" cellspacing="0" cellpadding="2" border="0" width="400" align="center">
                 <tr>
                     <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" required autofocus></td>

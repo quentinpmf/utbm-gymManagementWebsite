@@ -29,10 +29,10 @@ $req->execute(array(
     'id_auteur' => $_SESSION["UserId"],
     'titre' => utf8_decode($_POST['titre']),
     'description' => utf8_decode($_POST['description']),
-    'date_creation' => date("Y-m-d"),
+    'date_creation' => date("Y-m-d H:i:s"),
     'image' => (isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== "")) ? $_FILES['image']['name'] : '',
     'publie' => $publier
 ));
 
-header("location: actualites.php?creation=ok");
+header("location: actualites_accueil.php?creation=ok");
 ?>
