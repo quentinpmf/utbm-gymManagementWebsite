@@ -5,12 +5,12 @@
 //config
 include "../login/connectToBDD/conn.php";
 include '../../includes/config.php';
-include '../../includes/check_role.php';
 ?>
 
 <header id="header">
     <?php include '../../includes/banner.php'; ?>
     <?php include '../../includes/menu_admin.php'; ?>
+    <?php include '../../includes/checkIfRole/checkIfAdmin.php'; //Vérification des droits d'accès à la page ?>
 </header>
 
 <body>
