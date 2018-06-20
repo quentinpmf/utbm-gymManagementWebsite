@@ -5,7 +5,6 @@
 //config
 include "../login/connectToBDD/conn.php";
 include '../../includes/config.php';
-include '../../includes/checkIfRole/checkIfAdmin.php'; //Vérification des droits d'accès à la page
 
 
 $id = $_GET['id'];

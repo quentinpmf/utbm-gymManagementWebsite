@@ -1,6 +1,8 @@
 	<!DOCTYPE html>
 	<html lang="zxx" class="no-js">
-    <?php include 'includes/config.php'; ?>
+    <?php include 'includes/config.php';
+    include "php/login/connectToBDD/conn.php";
+    ?>
 
     <header id="header" id="home">
         <?php include 'includes/banner.php'; ?>
@@ -69,6 +71,40 @@
             </div>
         </section>
         <!-- End offer Area -->
+
+
+        <!-- Start feature Area ACTUALITES -->
+
+        <section class="feature-area">
+            <div class="container-fluid">
+                <div class="row justify-content-center align-items-center">
+
+                    <?php
+                         $req = $bdd->query("SELECT act.date_creation as date_creation
+                                                             ,act.titre as titre
+                                                             ,act.image as image
+                                                             ,act.description as description
+                                                       FROM actualites act
+                                                       WHERE act.publie = 1
+                                                       ORDER BY date_creation desc
+                                                       LIMIT 2");
+
+                        while($data = $req->fetch())
+                        {
+                            echo '<div class="col-lg-3 feat-img no-padding">';
+                                echo '<img class="img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
+                            echo '</div >';
+                            echo '<div class="col-lg-3 no-padding feat-txt" >';
+                                echo '<h6 class="text-uppercase text-white" >' . $data['date_creation'] . '</h6 >';
+                                echo '<h1 >' . utf8_encode($data['titre']) . '</h1 >';
+                                echo '<p >' . utf8_encode(substr($data['description'], 0, 300)) . '...</p >';
+                            echo '</div >';
+                        }
+                    ?>
+                </div>
+            </div>
+        </section>
+        <!-- End feature Area -->
 
         <!-- Start convert Area -->
         <section class="convert-area" id="convert">
@@ -170,34 +206,7 @@
         <!-- End top-course Area -->
 
 
-        <!-- Start feature Area -->
-        <section class="feature-area">
-            <div class="container-fluid">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-3 feat-img no-padding">
-                        <img class="img-fluid" src="img/f1.jpg" alt="">
-                    </div>
-                    <div class="col-lg-3 no-padding feat-txt">
-                        <h6 class="text-uppercase text-white">Basic & Common Repairs</h6>
-                        <h1>Basic Revolutions</h1>
-                        <p>
-                            Computer users and programmers have become so accustomed to using Windows, even for the changing capabilities and the appearances of the graphical.
-                        </p>
-                    </div>
-                    <div class="col-lg-3 feat-img no-padding">
-                        <img class="img-fluid" src="img/f2.jpg" alt="">
-                    </div>
-                    <div class="col-lg-3 no-padding feat-txt">
-                        <h6 class="text-uppercase text-white">Basic & Common Repairs</h6>
-                        <h1>Basic Revolutions</h1>
-                        <p>
-                            Computer users and programmers have become so accustomed to using Windows, even for the changing capabilities and the appearances of the graphical.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End feature Area -->
+       ce
 
         <!-- Start schedule Area -->
         <section class="schedule-area section-gap" id="schedule">
