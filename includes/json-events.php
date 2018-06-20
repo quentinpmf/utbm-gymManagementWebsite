@@ -1,22 +1,19 @@
 <?php
-require_once '../php/login/connectToBDD/conn.php';
 
-$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$stmt = $bdd->prepare("SELECT event_id, parent_id, title, start, end, nb_max_participants, participants, coach_id
-                           FROM events");
-$stmt->execute();
-$events = array();
+//http://jamelbaz.com/tutos/integration-de-fullcalendar-avec-php-mysql
+// liste des événements
+$json = array();
+// requête qui récupère les événements
+$requete = "SELECT * FROM evenement ORDER BY id";
 
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $eventArray['id'] = $row['event_id'];
-    $eventArray['parent_id'] = $row['parent_id'];
-    $eventArray['title'] = stripslashes($row['title']);
-    $eventArray['start'] = $row['start'];
-    $eventArray['end'] = $row['end'];
-    $eventArray['max_clients'] = $row['nb_max_participants'];
-    $eventArray['clients'] = $row['participants'];
-    $eventArray['coach'] = $row['coach_id'];
-    $events[] = $eventArray;
+// connexion à la base de données
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=projetta70', 'root', 'root');
+} catch(Exception $e) {
+    exit('Impossible de se connecter à la base de données.');
 }
+// exécution de la requête
+$resultat = $bdd->query($requete) or die(print_r($bdd->errorInfo()));
 
-echo json_encode($events);
+// envoi du résultat au success
+echo json_encode($resultat->fetchAll(PDO::FETCH_ASSOC));

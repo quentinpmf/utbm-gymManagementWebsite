@@ -5,6 +5,7 @@
     <header id="header" id="home">
         <?php include 'includes/banner.php'; ?>
         <?php include 'includes/menu.php'; ?>
+
     </header>
     <body>
 
@@ -78,7 +79,7 @@
                         <div class="menu-content pb-70 col-lg-8">
                             <div class="title text-center">
                                 <h1 class="text-white mb-10">Calculer votre IMC</h1>
-                                <p class="text-white">Lorem Ipsum.</p>
+                                <p class="text-white">L'indice de masse corporelle (IMC) est une grandeur qui permet d'estimer la corpulence d’une personne. Il est utilisé comme standard pour évaluer les risques liés au surpoids chez l’adulte. Elle a également défini des intervalles standards (maigreur, indice normal, surpoids, obésité) en se basant sur la relation constatée statistiquement entre l'IMC et le taux de mortalité.</p>
                             </div>
                         </div>
                     </div>
@@ -201,81 +202,8 @@
 
         <!-- Start schedule Area -->
         <section class="schedule-area section-gap" id="schedule">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-70 col-lg-8">
-                        <div class="title text-center">
-                            <h1 class="mb-10">Calendrier de la semaine</h1>
-                            <p>Lorem Ipsum.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="table-wrap col-lg-12">
-                        <table class="schdule-table table table-bordered">
-                              <thead class="thead-light">
-                                <tr>
-                                  <th class="head" scope="col">Nom du cours</th>
-                                  <th class="head" scope="col">Lundi</th>
-                                  <th class="head" scope="col">Mardi</th>
-                                  <th class="head" scope="col">Mercredi</th>
-                                  <th class="head" scope="col">Jeudi</th>
-                                  <th class="head" scope="col">Vendredi</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th class="name" scope="row">Aero Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Fitness Aero</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                              </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div id="calendar">
+                <span>trou</span>
             </div>
         </section>
         <!-- End schedule Area -->
