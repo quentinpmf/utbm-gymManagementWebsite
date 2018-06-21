@@ -51,7 +51,6 @@ else {
     if ($repeat_freq == 1){
         $weekday = 0;
     }
-    $bdd = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  // set the error mode to excptions
     $bdd->beginTransaction();
     try{

@@ -1,14 +1,69 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="fr" class="no-js">
 <head>
     <?php include 'includes/config.php'; ?>
-    <script src='js/moment.js'></script>
+    <script src='fullcalendar/moment.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href='fullcalendar/fullcalendar.min.css' rel='stylesheet' />
-    <link href='fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src='fullcalendar/locale/fr.js'></script>
+    <link href='fullcalendar/fullcalendar.min.css' rel='stylesheet'/>
+    <link href='fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print'/>
     <script src='fullcalendar/fullcalendar.min.js'></script>
+    <style>
+        .fc-scroller {
+            overflow-y: hidden !important;
+        }
+
+        label, input {
+            display: block;
+        }
+
+        input.text {
+            margin-bottom: 12px;
+            width: 95%;
+            padding: .4em;
+        }
+
+        fieldset {
+            padding: 0;
+            border: 0;
+            margin-top: 25px;
+        }
+
+        h1 {
+            font-size: 1.2em;
+            margin: .6em 0;
+        }
+
+        div#users-contain {
+            width: 350px;
+            margin: 20px 0;
+        }
+
+        div#users-contain table {
+            margin: 1em 0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        div#users-contain table td, div#users-contain table th {
+            border: 1px solid #eee;
+            padding: .6em 10px;
+            text-align: left;
+        }
+
+        .ui-dialog .ui-state-error {
+            padding: .3em;
+        }
+
+        .validateTips {
+            border: 1px solid transparent;
+            padding: 0.3em;
+        }
+    </style>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
+            var calendarHeight = 833;
             var calendar = $('#calendar').fullCalendar({
                 //configure options for the calendar
                 header: {
@@ -16,43 +71,59 @@
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
+                firstDay: 1,
+                height: calendarHeight,
+                contentHeight: calendarHeight,
+                minTime: "06:00:00",
+                maxTime: "23:00:00",
                 events: "includes/json-events.php",
-                lang: 'fr',
-                // this is where you specify where to pull the events from.
+                locale: 'fr',
+                timeFormat: 'H:mm',
 
                 events: "includes/json-events.php",
                 editable: false,
                 defaultView: 'agendaWeek',
                 allDayDefault: false,
             });
-            $("add-event").dialog({
+
+            var dialog = $("#add-event").dialog({
                 autoOpen: false,
                 height: 'auto',
                 width: 'auto',
-                autoResize:true,
+                autoResize: true,
                 modal: false,
                 resizable: false,
-                open: function(){
-                    $("#title").attr("tabindex","1");
+                open: function () {
+                    $("#title").attr("tabindex", "1");
                 },
                 buttons: {
-                    "Save Event": function() {
+                    "Save Event": function () {
                         $.ajax({
-                            type:"POST",
+                            type: "POST",
                             url: "includes/add-event.php",
                             data: $('#add-event-form').serialize(),
-                            success: function(){
+                            success: function () {
                                 calendar.fullCalendar('refetchEvents');
                             }
                         });
                         $(this).dialog("close");
                     },
 
-                    Cancel: function() {
+                    Cancel: function () {
                         $(this).dialog("close");
                     }
                 },
             });
+
+            var form = dialog.find("form").on("submit", function (event) {
+                event.preventDefault();
+                addUser();
+            });
+
+            $("#create-event").button().on("click", function () {
+                dialog.dialog("open");
+            });
+
         });
 
     </script>
@@ -60,8 +131,8 @@
 
 <body>
 <header id="header" id="home">
-    <?php include_once 'includes/banner.php'; ?>
-    <?php include_once 'includes/menu.php'; ?>
+    <?php include 'includes/banner.php'; ?>
+    <?php include 'includes/menu.php'; ?>
 </header>
 <!-- start banner Area -->
 <section class="banner-area relative" id="home">
@@ -98,7 +169,8 @@
                     <img class="img-fluid" src="img/o1.png" alt="">
                     <h4>Exercice régulier</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
                     </p>
                 </div>
             </div>
@@ -107,7 +179,8 @@
                     <img class="img-fluid" src="img/o2.png" alt="">
                     <h4>S'entrainer</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
                     </p>
                 </div>
             </div>
@@ -116,7 +189,8 @@
                     <img class="img-fluid" src="img/o3.png" alt="">
                     <h4>Body Building</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
                     </p>
                 </div>
             </div>
@@ -133,7 +207,11 @@
                 <div class="menu-content pb-70 col-lg-8">
                     <div class="title text-center">
                         <h1 class="text-white mb-10">Calculer votre IMC</h1>
-                        <p class="text-white">L'indice de masse corporelle (IMC) est une grandeur qui permet d'estimer la corpulence d’une personne. Il est utilisé comme standard pour évaluer les risques liés au surpoids chez l’adulte. Elle a également défini des intervalles standards (maigreur, indice normal, surpoids, obésité) en se basant sur la relation constatée statistiquement entre l'IMC et le taux de mortalité.</p>
+                        <p class="text-white">L'indice de masse corporelle (IMC) est une grandeur qui permet d'estimer
+                            la corpulence d’une personne. Il est utilisé comme standard pour évaluer les risques liés au
+                            surpoids chez l’adulte. Elle a également défini des intervalles standards (maigreur, indice
+                            normal, surpoids, obésité) en se basant sur la relation constatée statistiquement entre
+                            l'IMC et le taux de mortalité.</p>
                     </div>
                 </div>
             </div>
@@ -236,7 +314,8 @@
                 <h6 class="text-uppercase text-white">Basic & Common Repairs</h6>
                 <h1>Basic Revolutions</h1>
                 <p>
-                    Computer users and programmers have become so accustomed to using Windows, even for the changing capabilities and the appearances of the graphical.
+                    Computer users and programmers have become so accustomed to using Windows, even for the changing
+                    capabilities and the appearances of the graphical.
                 </p>
             </div>
             <div class="col-lg-3 feat-img no-padding">
@@ -246,7 +325,8 @@
                 <h6 class="text-uppercase text-white">Basic & Common Repairs</h6>
                 <h1>Basic Revolutions</h1>
                 <p>
-                    Computer users and programmers have become so accustomed to using Windows, even for the changing capabilities and the appearances of the graphical.
+                    Computer users and programmers have become so accustomed to using Windows, even for the changing
+                    capabilities and the appearances of the graphical.
                 </p>
             </div>
         </div>
@@ -256,34 +336,52 @@
 
 <!-- Start schedule Area -->
 <section class="schedule-area section-gap" id="schedule">
-    <div id="calendar" style="padding:300px;">
-    </div>
-    <div id="add-event" title="Ajouter événement">
-        <form action="" id ="add-event-form" name="add-event-form">
-            <label for="title">Event Name</label>
-            <input type="text" name="title" id="title"/>
-            <p>
-                <label for="add-date">Date</label>
-                <input type="text" name="event-date" id="event-date" tabindex="-1" />
-            </p>
-            <p>
-                <label for="add-start-time">Start Time</label>
-                <input type="text" name="start-time" id="start-time" />
-            </p>
-            <p>
-                <label for="add-end-time">End Time</label>
-                <input type="text" name="end-time" id="end-time" />
-            </p>
-            <p>
-                <label for="repeats">repeat </label>
-                <input type="checkbox" name="repeats" id="repeats" value="1"/>
-            <div id="repeat-options" >
-                Repeat every: day <input type="radio" value="1" name="repeat-freq" align="bottom">
-                week <input type="radio" value="7" name="repeat-freq" align="bottom">
-                two weeks <input type="radio" value="14" name="repeat-freq" align="bottom">
+    <div class="row d-flex justify-content-center">
+        <div class="menu-content pb-70 col-lg-8">
+            <div class="title text-center">
+                <h1 class="text-black mb-10">Calendrier de la semaine</h1>
             </div>
+        </div>
+    </div>
+    <div id="calendar" style="padding-left:300px;padding-right:300px;">
+    </div>
+
+    <div id="add-event" title="Creer event">
+        <form action="" id="add-event-form" name="add-event-form">
+            <fieldset>
+                <p class="validateTips">All form fields are required.</p>
+                <label for="title">Event Name</label>
+                <input type="text" name="title" id="title"/>
+                <p>
+                    <label for="add-date">Date</label>
+                    <input type="text" name="event-date" placeholder="<?php echo date('Y-m-j') ?>" id="event-date" tabindex="-1"/>
+                </p>
+                <p>
+                    <label for="add-start-time">Start Time</label>
+                    <?php
+                    $timestamp = time() + 60*60;
+                    $timea = date('H-i-s', time());
+                    $timeb = date('H-i-s', $timestamp);
+                    ?>
+                    <input type="text" name="start-time" placeholder="<?php echo $timea ?>" id="start-time"/>
+                </p>
+                <p>
+                    <label for="add-end-time">End Time</label>
+                    <input type="text" name="end-time" placeholder="<?php echo $timeb ?>" id="end-time"/>
+                </p>
+                <p>
+                    <label for="repeats">repeat </label>
+                    <input type="checkbox" name="repeats" id="repeats" value="1"/>
+                <div id="repeat-options">
+                    Repeat every: day <input type="radio" value="1" name="repeat-freq" align="bottom">
+                    week <input type="radio" value="7" name="repeat-freq" align="bottom">
+                    two weeks <input type="radio" value="14" name="repeat-freq" align="bottom">
+                </div>
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
         </form>
     </div>
+    <button id="create-event">Create new event</button>
 </section>
 <!-- End schedule Area -->
 
@@ -397,7 +495,8 @@
                             <li>Avantage 4</li>
                             <li>Avantage 5</li>
                         </ul>
-                        <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
+                        <button class="primary-btn price-btn mt-20">Purchase Plan<span
+                                    class="lnr lnr-arrow-right"></span></button>
                     </div>
                 </div>
             </div>
@@ -425,7 +524,8 @@
                             <li>Avantage 4</li>
                             <li>Avantage 5</li>
                         </ul>
-                        <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
+                        <button class="primary-btn price-btn mt-20">Purchase Plan<span
+                                    class="lnr lnr-arrow-right"></span></button>
                     </div>
                 </div>
             </div>
@@ -453,7 +553,8 @@
                             <li>Avantage 4</li>
                             <li>Avantage 5</li>
                         </ul>
-                        <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
+                        <button class="primary-btn price-btn mt-20">Purchase Plan<span
+                                    class="lnr lnr-arrow-right"></span></button>
                     </div>
                 </div>
             </div>
@@ -495,7 +596,8 @@
             <div class="col-lg-12">
                 <h1 class="text-white">Lorem Ipsum</h1>
                 <p class="text-white pt-20 pb-20">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore <br> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore <br> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
                 </p>
                 <a class="primary-btn" href="#">Rejoignez-nous!</a>
             </div>
@@ -513,7 +615,8 @@
                 <div class="single-footer-widget">
                     <h4>A propos de nous</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore dolore magna aliqua.
                     </p>
                 </div>
             </div>
@@ -521,7 +624,8 @@
                 <div class="single-footer-widget">
                     <h4>Nous contacter</h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore dolore magna aliqua.
                     </p>
                     <p class="number">
                         032434XXXX <br>
@@ -531,15 +635,21 @@
             <div class="col-lg-5  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
                     <h4>Newsletter</h4>
-                    <p>Vous pouvez nous faire confiance. Nous envoyons uniquement des offres interessantes, pas de spam.</p>
+                    <p>Vous pouvez nous faire confiance. Nous envoyons uniquement des offres interessantes, pas de
+                        spam.</p>
                     <div class="d-flex flex-row" id="mc_embed_signup">
 
 
-                        <form class="navbar-form" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get">
+                        <form class="navbar-form" novalidate="true"
+                              action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                              method="get">
                             <div class="input-group add-on">
-                                <input class="form-control" name="EMAIL" placeholder="Adresse email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adresse email'" required="" type="email">
+                                <input class="form-control" name="EMAIL" placeholder="Adresse email"
+                                       onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adresse email'"
+                                       required="" type="email">
                                 <div style="position: absolute; left: -5000px;">
-                                    <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                                    <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
+                                           type="text">
                                 </div>
                                 <div class="input-group-btn">
                                     <button class="genric-btn"><span class="lnr lnr-arrow-right"></span></button>
@@ -554,7 +664,9 @@
         <div class="footer-bottom row">
             <p class="footer-text m-0 col-lg-6">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart3" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is made with <i class="icon-heart3" aria-hidden="true"></i> by <a
+                        href="https://colorlib.com" target="_blank">Colorlib</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
             <div class="footer-social col-lg-6">
