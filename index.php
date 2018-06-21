@@ -28,6 +28,44 @@
         </section>
         <!-- End banner Area -->
 
+        <!-- Start feature Area ACTUALITES -->
+        <section class="feature-area" id="actus">
+            <div class="container-fluid">
+                <div class="row justify-content-center align-items-center">
+
+                    <?php
+                    $req = $bdd->query("SELECT date_creation
+                                                         ,titre
+                                                         ,image
+                                                         ,description
+                                                         ,id
+                                                   FROM actualites
+                                                   WHERE publie = 1
+                                                   ORDER BY date_creation desc
+                                                   LIMIT 2");
+
+                    while($data = $req->fetch())
+                    {
+
+                        echo '<div class="col-lg-3 feat-img no-padding">';
+                            echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
+                                echo '<img class="img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
+                            echo '</a>';
+                        echo '</div >';
+                        echo '<div class="col-lg-3 no-padding feat-txt" >';
+                            echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
+                                echo '<h6 class="text-uppercase text-white" >' . $data['date_creation'] . '</h6 >';
+                                echo '<h1 >' . utf8_encode($data['titre']) . '</h1 >';
+                                echo '<p style="color: white;" >' . utf8_encode(substr($data['description'], 0, 300)) . '...</p >';
+                            echo '</a>';
+                        echo '</div >';
+                    }
+                    ?>
+                </div>
+            </div>
+        </section>
+        <!-- End feature Area ACTUALITES -->
+
         <!-- Start offer Area -->
         <section class="offer-area section-gap" id="offer">
             <div class="container">
@@ -72,39 +110,6 @@
         </section>
         <!-- End offer Area -->
 
-
-        <!-- Start feature Area ACTUALITES -->
-
-        <section class="feature-area">
-            <div class="container-fluid">
-                <div class="row justify-content-center align-items-center">
-
-                    <?php
-                         $req = $bdd->query("SELECT act.date_creation as date_creation
-                                                             ,act.titre as titre
-                                                             ,act.image as image
-                                                             ,act.description as description
-                                                       FROM actualites act
-                                                       WHERE act.publie = 1
-                                                       ORDER BY date_creation desc
-                                                       LIMIT 2");
-
-                        while($data = $req->fetch())
-                        {
-                            echo '<div class="col-lg-3 feat-img no-padding">';
-                                echo '<img class="img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
-                            echo '</div >';
-                            echo '<div class="col-lg-3 no-padding feat-txt" >';
-                                echo '<h6 class="text-uppercase text-white" >' . $data['date_creation'] . '</h6 >';
-                                echo '<h1 >' . utf8_encode($data['titre']) . '</h1 >';
-                                echo '<p >' . utf8_encode(substr($data['description'], 0, 300)) . '...</p >';
-                            echo '</div >';
-                        }
-                    ?>
-                </div>
-            </div>
-        </section>
-        <!-- End feature Area -->
 
         <!-- Start convert Area -->
         <section class="convert-area" id="convert">
