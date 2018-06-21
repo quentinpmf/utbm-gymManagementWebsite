@@ -19,7 +19,7 @@ $req = $bdd->query("SELECT date_creation
                                      ,description
                                      ,id
                                FROM actualites
-                               WHERE id = 2");
+                               WHERE id = $id");
 
 if($data = $req->fetch())
 {
@@ -39,7 +39,7 @@ if($data = $req->fetch())
             <td><h1 style="text-align: center; margin-top: 20px;"><?php echo utf8_encode($titre); ?></h1></td>
         </tr>
         <tr>
-            <td align="center"><img src = "img/actualites/<?php echo $image ?>" ></td>
+            <td align="center"><img src = "img/actualites/<?php echo $image ?>" width="100%"></td>
         </tr>
         <tr>
             <td><p style="margin-top: 20px;"><?php echo utf8_encode($texte); ?></p></td>
