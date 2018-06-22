@@ -114,9 +114,6 @@ include "connectToBDD/conn.php";
 
             <h1 class="mb-10"><u>Inscription</u></h1>
 
-            <div style="visibility: hidden" id="alert_danger" class="alert alert-danger" role="alert">Veuillez remplir tous les champs !</div>
-            <div style="visibility: hidden" id="alert_info" class="alert alert-info" role="alert">Redirection vers la plateforme de paiement... <i class="fa fa-spinner fa-spin" style="font-size:24px"></i></div>
-
             <?php if(isset($_GET['error'])){ ?>
                 <div class="alert alert-danger" role="alert">
                     <?php
@@ -194,7 +191,7 @@ include "connectToBDD/conn.php";
                             </select>
                         </td>
                     </tr>
-.
+
                     <tr id="tr-btnInscription">
                         <td colspan="2" align="right">
                             <input type="submit" value="S'inscrire"/>
