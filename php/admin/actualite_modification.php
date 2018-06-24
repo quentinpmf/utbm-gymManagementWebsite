@@ -6,7 +6,6 @@
 include "../login/connectToBDD/conn.php";
 include '../../includes/config.php';
 
-
 $id = $_GET['id'];
 $req = $bdd->query("SELECT * FROM actualites WHERE id = $id");
 $data = $req->fetch();
@@ -20,10 +19,10 @@ $data = $req->fetch();
             <form enctype="multipart/form-data" method="post" action="actualite_modif_update.php?id=<?php echo $id ?>">
                 <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" cellspacing="0" cellpadding="2" border="0" width="400" align="center">
                     <tr>
-                        <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" value="<?php echo $data['titre'] ?>" required></td>
+                        <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" value="<?php echo utf8_encode($data['titre']) ?>" required></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><textarea rows="10" cols="100" name="description" required><?php echo $data['description'] ?></textarea></td>
+                        <td colspan="2"><textarea rows="10" cols="100" name="description" required><?php echo utf8_encode($data['description']) ?></textarea></td>
                     </tr>
                     <tr>
                         <td><img src="../../img/actualites/<?php echo $data['image'] ?>" height="80" width="120" align="left"></td>

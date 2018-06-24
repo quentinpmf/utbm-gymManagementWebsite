@@ -5,9 +5,10 @@
 //config
 include "../login/connectToBDD/conn.php";
 include '../../includes/config.php';
+session_start();
 
 date_default_timezone_set('Europe/Paris');
-session_start();
+
 
 var_dump($_FILES);
 
@@ -24,15 +25,20 @@ else
     $publier = 0;
 }
 
-$req = $bdd->prepare("INSERT INTO actualites(id_auteur, titre, description, date_creation, image, publie) VALUES (:id_auteur, :titre, :description, :date_creation, :image, :publie)");
-$req->execute(array(
-    'id_auteur' => $_SESSION["UserId"],
-    'titre' => utf8_decode($_POST['titre']),
-    'description' => utf8_decode($_POST['description']),
-    'date_creation' => date("Y-m-d H:i:s"),
-    'image' => (isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== "")) ? $_FILES['image']['name'] : '',
-    'publie' => $publier
-));
 
-header("location: actualites_accueil.php?creation=ok");
+if($_SESSION || $_SESSION['UserRole'] == 4)
+{
+    $req = $bdd->prepare("INSERT INTO actualites(id_auteur, titre, description, date_creation, image, publie) VALUES (:id_auteur, :titre, :description, :date_creation, :image, :publie)");
+    $req->execute(array(
+        'id_auteur' => $_SESSION["UserId"],
+        'titre' => utf8_decode($_POST['titre']),
+        'description' => utf8_decode($_POST['description']),
+        'date_creation' => date("Y-m-d H:i:s"),
+        'image' => (isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== "")) ? $_FILES['image']['name'] : '',
+        'publie' => $publier
+    ));
+
+    header("location: actualites_accueil.php?creation=ok");
+}
+
 ?>

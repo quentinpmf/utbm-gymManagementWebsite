@@ -6,7 +6,6 @@
 include "../login/connectToBDD/conn.php";
 include '../../includes/config.php';
 
-
 $id = $_GET['id'];
 $req = $bdd->prepare('UPDATE actualites SET publie = :publie WHERE id = :id');
 
