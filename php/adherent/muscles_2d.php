@@ -2,6 +2,7 @@
 <html lang="zxx" class="no-js">
     <?php
         include "../login/connectToBDD/conn.php";
+        //include '../../includes/checkIfRole/checkIfAdherent.php'; //TODO QUENTIN
         include '../../includes/config.php';
     ?>
 
