@@ -4,6 +4,7 @@
 <?php
 //config
 include "../login/connectToBDD/conn.php";
+include '../../includes/checkIfRole/checkIfComptable.php';
 include '../../includes/config.php';
 ?>
 

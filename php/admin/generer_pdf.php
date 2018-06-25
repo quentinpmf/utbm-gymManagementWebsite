@@ -1,6 +1,7 @@
 <?php
 require('../../includes/fpdf/fpdf.php');
 require('../login/connectToBDD/conn.php');
+include '../../includes/checkIfRole/checkIfAdmin.php';
 
 date_default_timezone_set('Europe/Paris');
 

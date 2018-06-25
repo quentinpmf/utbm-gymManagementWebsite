@@ -4,6 +4,7 @@
 <?php
 //config
 include "../login/connectToBDD/conn.php";
+include '../../includes/checkIfRole/checkIfAdmin.php';
 include '../../includes/config.php';
 
 $id = $_GET['id'];

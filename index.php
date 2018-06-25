@@ -19,7 +19,7 @@
                         <h1 class="text-uppercase">
                             Fitness Club
                         </h1>
-                        <p class="text-white text-uppercase pt-170 pb-170">
+                        <p class="text-white text-uppercase pt-140 pb-170">
                             Rejoignez-nous !
                         </p>
                     </div>
