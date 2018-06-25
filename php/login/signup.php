@@ -109,7 +109,7 @@ include "connectToBDD/conn.php";
 <br>
 
 <body>
-    <section class="section-gap">
+    <section class="section-gap-other-pages">
         <div class="title text-center">
 
             <h1 class="mb-10"><u>Inscription</u></h1>

@@ -11,12 +11,12 @@ $req = $bdd->query("SELECT * FROM actualites WHERE id = $id");
 $data = $req->fetch();
 ?>
 <body>
-    <section class="section-gap">
+    <section class="section-gap-other-pages">
         <div class="title text-center">
 
             <h1 style="margin-top: 70px" class="mb-10"><u>Modification Actualité</u></h1>
 
-            <form enctype="multipart/form-data" method="post" action="actualite_modif_update.php?id=<?php echo $id ?>">
+            <form enctype="multipart/form-data" method="post" action="traitement/actualite_modif_update.php?id=<?php echo $id ?>">
                 <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" cellspacing="0" cellpadding="2" border="0" width="400" align="center">
                     <tr>
                         <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" value="<?php echo utf8_encode($data['titre']) ?>" required></td>

@@ -9,16 +9,16 @@ include '../../includes/config.php';
 
 <header id="header">
     <?php include '../../includes/banner.php'; ?>
-    <?php include '../../includes/menu_admin.php'; ?>
+    <?php include '../../includes/menu_distant.php'; ?>
 </header>
 
 <body>
-<section class="section-gap">
+<section class="section-gap-other-pages">
     <div class="title text-center">
 
         <h1 style="margin-top: 70px" class="mb-10"><u>Nouvelle Actualité</u></h1>
 
-        <form enctype="multipart/form-data" method="post" action="actualite_add.php">
+        <form enctype="multipart/form-data" method="post" action="traitement/actualite_add.php">
             <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" cellspacing="0" cellpadding="2" border="0" width="400" align="center">
                 <tr>
                     <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" required autofocus></td>

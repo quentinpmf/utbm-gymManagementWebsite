@@ -8,11 +8,12 @@ include '../../includes/config.php';
 
 <header id="header">
     <?php include '../../includes/banner.php'; ?>
+    <?php include '../../includes/menu.php'; ?>
 </header>
 <br>
 
 <body>
-    <section class="section-gap">
+    <section class="section-gap-other-pages">
         <div class="title text-center">
 
             <h1 class="mb-10"><u>Authentification</u></h1>

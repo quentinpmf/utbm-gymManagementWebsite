@@ -9,14 +9,14 @@ include '../../includes/config.php';
 
 <header id="header">
     <?php include '../../includes/banner.php'; ?>
-    <?php include '../../includes/menu_admin.php'; ?>
+    <?php include '../../includes/menu_distant.php'; ?>
 </header>
 
 <body>
-<section class="section-gap">
+<section class="section-gap-other-pages">
     <div class="title text-center">
 
-        <h1 style="margin-top: 70px" class="mb-10"><u>Actualités</u></h1>
+        <h1 style="margin-top: 70px" class="mb-10">Actualités</h1>
 
         <?php if(isset($_GET['creation']) && $_GET['creation'] == "ok"){ ?>
             <div class="alert alert-success" role="alert">
