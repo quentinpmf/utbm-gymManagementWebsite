@@ -18,7 +18,7 @@
                             ?>
                             <li class="menu-has-children"><a href="" style="color:#66b266">Mon espace adhérent</a>
                                 <ul>
-                                    <li class="menu-active"><a href="../projetTA70/php/adherent/home.php">Mes informations</a></li>
+                                    <li class="menu-active"><a href="../projetTA70/php/adherent/mes_informations.php">Mes informations</a></li>
                                     <li><a href="../projetTA70/php/adherent/muscles_2d.php">Muscles 2D</a></li>
                                     <li><a href="../projetTA70/php/adherent/cours.php">Mes cours</a></li>
                                     <li><a href="../projetTA70/php/adherent/factures.php">Mes factures</a></li>
