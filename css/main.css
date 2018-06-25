@@ -2998,7 +2998,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin: 0;
 }
 
-/* Actualités */
+/* =================================== Actualités =================================== */
 
 #actus {
   padding-top:50px;
@@ -3026,7 +3026,7 @@ h1
   word-wrap: break-word;
 }
 
-/* autres */
+/* =================================== Autres =================================== */
 .border-black
 {
   border-top:2px solid black;

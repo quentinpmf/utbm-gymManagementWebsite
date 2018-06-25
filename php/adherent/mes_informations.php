@@ -17,7 +17,7 @@ include '../../includes/config.php';
 <section class="section-gap-other-pages">
     <div class="title text-center">
 
-        <h1 style="margin-top: 70px" class="mb-10"><u>Mes informations</u></h1>
+        <h1 style="margin-top: 70px" class="mb-10">Mes informations</h1>
 
         <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" align="center">
             <tr>
