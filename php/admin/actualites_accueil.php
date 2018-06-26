@@ -55,13 +55,13 @@ include '../../includes/config.php';
                     echo "<td rowspan='3'>";
                         if($data['publie'] == 1)
                         {
-                            echo '<a href="actualite_publie_modif.php?action=depublier&id='.$data["id"].'">';
+                            echo '<a href="traitement/actualite_publie_modif.php?action=depublier&id='.$data["id"].'">';
                             echo '<input type="submit" name="btn_depublier" value="Dépublier" style="background-color:#8F8282;color:#FFFFFF;padding:6px 0 6px 0;font:Bold 13px Arial;width:90px;border-radius:2px;border:none">';
                             echo '</a>';
                         }
                         else
                         {
-                            echo '<a href="actualite_publie_modif.php?action=publier&id='.$data["id"].'">';
+                            echo '<a href="traitement/actualite_publie_modif.php?action=publier&id='.$data["id"].'">';
                             echo '<input type="submit" name="btn_publier" value="Publier" style="background-color:#069B37;color:#FFFFFF;padding:6px 0 6px 0;font:Bold 13px Arial;width:90px;border-radius:2px;border:none">';
                             echo '</a>';
                         }
@@ -72,7 +72,7 @@ include '../../includes/config.php';
                         echo '</a>';
                     echo "</td>";
                     echo "<td rowspan='3'>";
-                        echo '<a href="actualite_suppression.php?id='.$data["id"].'">';
+                        echo '<a href="traitement/actualite_suppression.php?id='.$data["id"].'">';
                             echo '<img src="../../img/trash-circle-red-512.png">';
                         echo '</a>';
                     echo "</td>";

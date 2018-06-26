@@ -4,7 +4,7 @@
 <?php
 //config
 include "../../login/connectToBDD/conn.php";
-include '../../../includes/checkIfRole/checkIfAdmin_traitement.php';
+include '../../../includes/checkIfRole/checkIfAdmin.php';
 include '../../../includes/config.php';
 
 $id = $_GET['id'];
@@ -19,7 +19,7 @@ else
 
 if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== ""))
 {
-    file_put_contents('../../img/actualites/'.$_FILES['image']['name'], file_get_contents($_FILES['image']['tmp_name']));
+    file_put_contents('../../../img/actualites/'.$_FILES['image']['name'], file_get_contents($_FILES['image']['tmp_name']));
     $req = $bdd->prepare("UPDATE actualites SET titre = :titre, description = :description, image = :image, publie = :publie WHERE id = :id");
     $req->execute(array(
         'titre' => utf8_decode($_POST['titre']),
@@ -40,5 +40,5 @@ else
     ));
 }
 
-header("location: actualites_accueil.php");
+header("location: ../actualites_accueil.php");
 ?>

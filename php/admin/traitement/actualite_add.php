@@ -4,9 +4,8 @@
 <?php
 //config
 include "../../login/connectToBDD/conn.php";
-include '../../../includes/checkIfRole/checkIfAdmin_traitement.php';
+include '../../../includes/checkIfRole/checkIfAdmin.php';
 include '../../../includes/config.php';
-session_start();
 
 date_default_timezone_set('Europe/Paris');
 
@@ -15,7 +14,7 @@ var_dump($_FILES);
 
 if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== ""))
 {
-    file_put_contents('../../img/actualites/'.$_FILES['image']['name'], file_get_contents($_FILES['image']['tmp_name']));
+    file_put_contents('../../../img/actualites/'.$_FILES['image']['name'], file_get_contents($_FILES['image']['tmp_name']));
 }
 
 if(isset($_POST['publier']) && $_POST['publier'] == 'on') {
@@ -39,7 +38,7 @@ if($_SESSION || $_SESSION['UserRole'] == 4)
         'publie' => $publier
     ));
 
-    header("location: actualites_accueil.php?creation=ok");
+    header("location: ../actualites_accueil.php?creation=ok");
 }
 
 ?>

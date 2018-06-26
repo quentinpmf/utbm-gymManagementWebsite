@@ -4,7 +4,7 @@
 <?php
 //config
 include "../../login/connectToBDD/conn.php";
-include '../../../includes/checkIfRole/checkIfAdmin_traitement.php';
+include '../../../includes/checkIfRole/checkIfAdmin.php';
 include '../../../includes/config.php';
 
 
@@ -14,5 +14,5 @@ $req = $bdd->prepare('DELETE FROM actualites WHERE id = :id');
 
 $req->execute(array('id' => $id));
 
-header("location: actualites_accueil.php");
+header("location: ../actualites_accueil.php");
 ?>
