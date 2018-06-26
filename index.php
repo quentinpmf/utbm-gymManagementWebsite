@@ -2,131 +2,101 @@
 <html lang="fr" class="no-js">
 <head>
     <?php include 'includes/config.php'; ?>
-    <script src='fullcalendar/moment.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src='fullcalendar/locale/fr.js'></script>
-    <link href='fullcalendar/fullcalendar.min.css' rel='stylesheet'/>
-    <link href='fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print'/>
-    <script src='fullcalendar/fullcalendar.min.js'></script>
-    <style>
-        .fc-scroller {
-            overflow-y: hidden !important;
-        }
-
-        label, input {
-            display: block;
-        }
-
-        input.text {
-            margin-bottom: 12px;
-            width: 95%;
-            padding: .4em;
-        }
-
-        fieldset {
-            padding: 0;
-            border: 0;
-            margin-top: 25px;
-        }
-
-        h1 {
-            font-size: 1.2em;
-            margin: .6em 0;
-        }
-
-        div#users-contain {
-            width: 350px;
-            margin: 20px 0;
-        }
-
-        div#users-contain table {
-            margin: 1em 0;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        div#users-contain table td, div#users-contain table th {
-            border: 1px solid #eee;
-            padding: .6em 10px;
-            text-align: left;
-        }
-
-        .ui-dialog .ui-state-error {
-            padding: .3em;
-        }
-
-        .validateTips {
-            border: 1px solid transparent;
-            padding: 0.3em;
-        }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var calendarHeight = 833;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function() {
             var calendar = $('#calendar').fullCalendar({
-                //configure options for the calendar
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                editable:true,
+                header:{
+                    left:'prev,next today',
+                    center:'title',
+                    right:'month,agendaWeek,agendaDay'
                 },
-                firstDay: 1,
-                height: calendarHeight,
-                contentHeight: calendarHeight,
-                minTime: "06:00:00",
-                maxTime: "23:00:00",
-                events: "includes/json-events.php",
-                locale: 'fr',
-                timeFormat: 'H:mm',
-
-                events: "includes/json-events.php",
-                editable: false,
-                defaultView: 'agendaWeek',
-                allDayDefault: false,
-            });
-
-            var dialog = $("#add-event").dialog({
-                autoOpen: false,
-                height: 'auto',
-                width: 'auto',
-                autoResize: true,
-                modal: false,
-                resizable: false,
-                open: function () {
-                    $("#title").attr("tabindex", "1");
-                },
-                buttons: {
-                    "Save Event": function () {
+                events: 'includes/calendar/load.php',
+                selectable:true,
+                selectHelper:true,
+                select: function(start, end, allDay)
+                {
+                    var title = prompt("Enter Event Title");
+                    if(title)
+                    {
+                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                         $.ajax({
-                            type: "POST",
-                            url: "includes/add-event.php",
-                            data: $('#add-event-form').serialize(),
-                            success: function () {
+                            url:"includes/calendar/insert.php",
+                            type:"POST",
+                            data:{title:title, start:start, end:end},
+                            success:function()
+                            {
                                 calendar.fullCalendar('refetchEvents');
+                                alert("Added Successfully");
                             }
-                        });
-                        $(this).dialog("close");
-                    },
-
-                    Cancel: function () {
-                        $(this).dialog("close");
+                        })
                     }
                 },
-            });
+                editable:true,
+                eventResize:function(event)
+                {
+                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                    var title = event.title;
+                    var id = event.id;
+                    $.ajax({
+                        url:"includes/calendar/update.php",
+                        type:"POST",
+                        data:{title:title, start:start, end:end, id:id},
+                        success:function(){
+                            calendar.fullCalendar('refetchEvents');
+                            alert('Event Update');
+                        }
+                    })
+                },
 
-            var form = dialog.find("form").on("submit", function (event) {
-                event.preventDefault();
-                addUser();
-            });
+                eventDrop:function(event)
+                {
+                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                    var title = event.title;
+                    var id = event.id;
+                    $.ajax({
+                        url:"includes/calendar/update.php",
+                        type:"POST",
+                        data:{title:title, start:start, end:end, id:id},
+                        success:function()
+                        {
+                            calendar.fullCalendar('refetchEvents');
+                            alert("Event Updated");
+                        }
+                    });
+                },
 
-            $("#create-event").button().on("click", function () {
-                dialog.dialog("open");
-            });
+                eventClick:function(event)
+                {
+                    if(confirm("Are you sure you want to remove it?"))
+                    {
+                        var id = event.id;
+                        $.ajax({
+                            url:"includes/calendar/delete.php",
+                            type:"POST",
+                            data:{id:id},
+                            success:function()
+                            {
+                                calendar.fullCalendar('refetchEvents');
+                                alert("Event Removed");
+                            }
+                        })
+                    }
+                },
 
+            });
         });
-
     </script>
+
 </head>
 
 <body>
@@ -345,43 +315,6 @@
     </div>
     <div id="calendar" style="padding-left:300px;padding-right:300px;">
     </div>
-
-    <div id="add-event" title="Creer event">
-        <form action="" id="add-event-form" name="add-event-form">
-            <fieldset>
-                <p class="validateTips">All form fields are required.</p>
-                <label for="title">Event Name</label>
-                <input type="text" name="title" id="title"/>
-                <p>
-                    <label for="add-date">Date</label>
-                    <input type="text" name="event-date" placeholder="<?php echo date('Y-m-j') ?>" id="event-date" tabindex="-1"/>
-                </p>
-                <p>
-                    <label for="add-start-time">Start Time</label>
-                    <?php
-                    $timestamp = time() + 60*60;
-                    $timea = date('H-i-s', time());
-                    $timeb = date('H-i-s', $timestamp);
-                    ?>
-                    <input type="text" name="start-time" placeholder="<?php echo $timea ?>" id="start-time"/>
-                </p>
-                <p>
-                    <label for="add-end-time">End Time</label>
-                    <input type="text" name="end-time" placeholder="<?php echo $timeb ?>" id="end-time"/>
-                </p>
-                <p>
-                    <label for="repeats">repeat </label>
-                    <input type="checkbox" name="repeats" id="repeats" value="1"/>
-                <div id="repeat-options">
-                    Repeat every: day <input type="radio" value="1" name="repeat-freq" align="bottom">
-                    week <input type="radio" value="7" name="repeat-freq" align="bottom">
-                    two weeks <input type="radio" value="14" name="repeat-freq" align="bottom">
-                </div>
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
-    <button id="create-event">Create new event</button>
 </section>
 <!-- End schedule Area -->
 
