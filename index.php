@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row justify-content-center align-items-center">
                     <?php
                     $req = $bdd->query("SELECT date_creation,titre,image,description,id FROM actualites WHERE publie = 1 ORDER BY date_creation desc LIMIT 3");
                     while($data = $req->fetch())
