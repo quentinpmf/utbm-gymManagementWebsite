@@ -7,12 +7,13 @@ include '../../includes/config.php';
 ?>
 
 <header id="header">
+    <?php session_start(); ?>
     <?php include '../../includes/banner.php'; ?>
 </header>
 <br>
 
 <body>
-    <section class="section-gap">
+    <section class="section-gap-other-pages">
         <div class="title text-center">
 
             <h1 class="mb-10">Déconnexon</h1>

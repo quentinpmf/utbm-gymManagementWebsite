@@ -1,8 +1,9 @@
 <?php
 
+session_start();
 if(!$_SESSION || $_SESSION['UserRole'] != 4)
 {
-    header('location:../php/admin/403_forbidden.php');
+    header('location:../../index.php');
 }
 
 ?>

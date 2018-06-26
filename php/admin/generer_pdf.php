@@ -1,6 +1,7 @@
 <?php
 require('../../includes/fpdf/fpdf.php');
 require('../login/connectToBDD/conn.php');
+include '../../includes/checkIfRole/checkIfAdmin.php';
 
 date_default_timezone_set('Europe/Paris');
 
@@ -27,17 +28,8 @@ class PDF extends FPDF
         $abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
         while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
         {
-            $id_abonne = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonne']);
             $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
             $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
-            $date_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['date_abonnement']);
-
-            $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
-            while ($donnees_abonnement = $abonnement->fetch())
-            {
-                $abonnement_texte = htmlspecialchars($donnees_abonnement['texte']);
-                $abonnement_tarif = htmlspecialchars($donnees_abonnement['tarif']);
-            }
 
             $user = $bdd->query("SELECT * FROM utilisateurs WHERE id='$id_utilisateur'");
             while ($donnees_user = $user->fetch())
@@ -48,7 +40,6 @@ class PDF extends FPDF
                 $user_adresse = htmlspecialchars($donnees_user['adresse']);
                 $user_cp = htmlspecialchars($donnees_user['cp']);
                 $user_ville = htmlspecialchars($donnees_user['ville']);
-                $user_tel = htmlspecialchars($donnees_user['telephone']);
             }
         }
 
@@ -171,10 +162,7 @@ class PDF extends FPDF
         $abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
         while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
         {
-            $id_abonne = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonne']);
             $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
-            $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
-            $date_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['date_abonnement']);
 
             $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
             while ($donnees_abonnement = $abonnement->fetch())
@@ -225,8 +213,8 @@ $pdf->AliasNbPages(); // Define an alias for total number of pages
 $pdf->AddPage(); // Start a new page - contient header() / footer()
 $pdf->SetFont('Times','',12); //police
 $pdf->FancyTable($header_tableau); //corps du devis (tableau+données)
-$chemin=$_SERVER['DOCUMENT_ROOT'].'projetTA70/docs_client/FACT/'.$chemin;
-$pdf->Output($chemin,'F');
+$chemin_full=$_SERVER['DOCUMENT_ROOT'].'projetTA70/docs_client/FACT/'.$chemin;
+$pdf->Output($chemin_full,'F');
 ob_get_clean(); //je vide le tampon de sortie
-$pdf->Output($chemin,'I'); // 'D' pour dowload browser
+$pdf->Output($chemin_full,'I'); // 'D' pour dowload browser
 ?>

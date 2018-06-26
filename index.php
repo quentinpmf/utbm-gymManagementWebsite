@@ -5,6 +5,7 @@
     ?>
 
     <header id="header" id="home">
+        <?php session_start(); ?>
         <?php include 'includes/banner.php'; ?>
         <?php include 'includes/menu.php'; ?>
     </header>
@@ -17,10 +18,10 @@
                 <div class="row fullscreen d-flex align-items-center justify-content-start">
                     <div class="banner-content col-lg-12 col-md-12">
                         <h1 class="text-uppercase">
-                            Lorem Ipsum
+                            Fitness Club
                         </h1>
-                        <p class="text-white text-uppercase pt-20 pb-20">
-                            Lorem Ipsum
+                        <p class="text-white text-uppercase pt-140 pb-170">
+                            Rejoignez-nous !
                         </p>
                     </div>
                 </div>
@@ -31,32 +32,41 @@
         <!-- Start feature Area ACTUALITES -->
         <section class="feature-area" id="actus">
             <div class="container-fluid">
+
+                <div class="row d-flex justify-content-center">
+                    <div class="menu-content pb-20 col-lg-9">
+                        <div class="title text-center">
+                            <h1 style="color:white" class="mb-10">Les dernières actualités</h1>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row justify-content-center align-items-center">
-
                     <?php
-                    $req = $bdd->query("SELECT date_creation
-                                                         ,titre
-                                                         ,image
-                                                         ,description
-                                                         ,id
-                                                   FROM actualites
-                                                   WHERE publie = 1
-                                                   ORDER BY date_creation desc
-                                                   LIMIT 2");
-
+                    $req = $bdd->query("SELECT date_creation,titre,image,description,id FROM actualites WHERE publie = 1 ORDER BY date_creation desc LIMIT 3");
                     while($data = $req->fetch())
                     {
 
-                        echo '<div class="col-lg-3 feat-img no-padding">';
+                        echo '<div class="col-lg-2">';
                             echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
                                 echo '<img class="img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
                             echo '</a>';
                         echo '</div >';
-                        echo '<div class="col-lg-3 no-padding feat-txt" >';
+                        echo '<div class="col-lg-2 imgActualites" >';
                             echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
-                                echo '<h6 class="text-uppercase text-white" >' . $data['date_creation'] . '</h6 >';
-                                echo '<h1 >' . utf8_encode($data['titre']) . '</h1 >';
-                                echo '<p style="color: white;" >' . utf8_encode(substr($data['description'], 0, 300)) . '...</p >';
+                                echo '<div class="dateActualites" >' . substr($data['date_creation'],0,10) . '</div >';
+                                echo '<h1>' . utf8_encode($data['titre']) . '</h1 >';
+
+                                if(strlen($data['description']) > 100)
+                                {
+                                    $suite = "...";
+                                }
+                                else
+                                {
+                                    $suite = "";
+                                }
+
+                                echo '<div class="texteActualites" style="color: white;" >' . utf8_encode(substr($data['description'], 0, 100)) . $suite . '</div >';
                             echo '</a>';
                         echo '</div >';
                     }
@@ -66,87 +76,13 @@
         </section>
         <!-- End feature Area ACTUALITES -->
 
-        <!-- Start offer Area -->
-        <section class="offer-area section-gap" id="offer">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-70 col-lg-8">
-                        <div class="title text-center">
-                            <h1 class=" mb-10">Ce que nous offrons</h1>
-                            <p>Lorem Ipsum.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="single-offer">
-                            <img class="img-fluid" src="img/o1.png" alt="">
-                            <h4>Exercice régulier</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="single-offer">
-                            <img class="img-fluid" src="img/o2.png" alt="">
-                            <h4>S'entrainer</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="single-offer">
-                            <img class="img-fluid" src="img/o3.png" alt="">
-                            <h4>Body Building</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End offer Area -->
-
-
-        <!-- Start convert Area -->
-        <section class="convert-area" id="convert">
-            <div class="container">
-                <div class="convert-wrap">
-                    <div class="row d-flex justify-content-center">
-                        <div class="menu-content pb-70 col-lg-8">
-                            <div class="title text-center">
-                                <h1 class="text-white mb-10">Calculer votre IMC</h1>
-                                <p class="text-white">Lorem Ipsum.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center align-items-start">
-                        <div class="col-lg-3 col-md-6 cols-img">
-                            <input type="text" name="feet" placeholder="Votre Taille (cm)" class="form-control mb-20">
-                        </div>
-                        <div class="col-lg-3 col-md-6 cols">
-                            <input type="text" name="pounds" placeholder="Votre Poids (kg)" class="form-control mb-20">
-                        </div>
-                        <div class="col-lg-3 col-md-6 cols">
-                            <a href="#" class="primary-btn header-btn text-uppercase">Calculer votre IMC</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End convert Area -->
-
         <!-- Start top-course Area -->
-        <section class="top-course-area section-gap" id="top-course">
+        <section class="top-course-area section-gap" id="cours">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-70 col-lg-9">
+                    <div class="menu-content pb-20 col-lg-9">
                         <div class="title text-center">
-                            <h1 class="mb-10">Notre top cours ouverts pour les adhérents</h1>
-                            <p>Lorem Ipsum.</p>
+                            <h1 class="mb-10">Nos cours ouverts aux adhérents</h1>
                         </div>
                     </div>
                 </div>
@@ -156,8 +92,7 @@
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c1.jpg" alt="">
                             </div>
-                            <span class="course-status">Cours Disponible</span>
-                            <a href="#"><h4>Cours de course<span>275€</span></h4></a>
+                            <span class="course-status">Course</span>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -165,8 +100,7 @@
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c2.jpg" alt="">
                             </div>
-                            <span class="course-status">Cours Disponible</span>
-                            <a href="#"><h4>Cours poids léger<span>200€</span></h4></a>
+                            <span class="course-status">CrossFit</span>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -174,8 +108,7 @@
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c3.jpg" alt="">
                             </div>
-                            <span class="course-status">Cours Disponible</span>
-                            <a href="#"><h4>Cours de combat<span>225€</span></h4></a>
+                            <span class="course-status">Remise en forme</span>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -183,8 +116,7 @@
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c4.jpg" alt="">
                             </div>
-                            <span class="course-status">Cours Disponible</span>
-                            <a href="#"><h4>Cours de yoga<span>300€</span></h4></a>
+                            <span class="course-status">Yoga</span>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -192,17 +124,7 @@
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c5.jpg" alt="">
                             </div>
-                            <span class="course-status">Cours Disponible</span>
-                            <a href="#"><h4>Cours de fitness<span>500€</span></h4></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-course">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c6.jpg" alt="">
-                            </div>
-                            <span class="course-status">Cours Disponible</span>
-                            <a href="#"><h4>Cours de body building<span>250€</span></h4></a>
+                            <span class="course-status">Force</span>
                         </div>
                     </div>
                 </div>
@@ -210,17 +132,13 @@
         </section>
         <!-- End top-course Area -->
 
-
-       ce
-
         <!-- Start schedule Area -->
-        <section class="schedule-area section-gap" id="schedule">
+        <section class="schedule-area section-gap border-black" id="planning">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-70 col-lg-8">
+                    <div class="menu-content pb-20 col-lg-8">
                         <div class="title text-center">
                             <h1 class="mb-10">Calendrier de la semaine</h1>
-                            <p>Lorem Ipsum.</p>
                         </div>
                     </div>
                 </div>
@@ -296,13 +214,12 @@
 
 
         <!-- Start team Area -->
-        <section class="team-area section-gap" id="trainer">
+        <section class="team-area section-gap border-black" id="coachs">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-70 col-lg-8">
+                    <div class="menu-content pb-20 col-lg-8">
                         <div class="title text-center">
-                            <h1 class="mb-10">Nos coachs expérimentés</h1>
-                            <p>Lorem Ipsum.</p>
+                            <h1 class="mb-10">Nos coachs</h1>
                         </div>
                     </div>
                 </div>
@@ -318,7 +235,7 @@
                         </div>
                         <div class="meta-text mt-30 text-center">
                             <h4>Ethel Davis</h4>
-                            <p>Lorem Ipsum</p>
+                            <p>Course</p>
                         </div>
                     </div>
                     <div class="col-md-3 single-team">
@@ -332,7 +249,7 @@
                         </div>
                         <div class="meta-text mt-30 text-center">
                             <h4>Rodney Cooper</h4>
-                            <p>Lorem Ipsum</p>
+                            <p>Force</p>
                         </div>
                     </div>
                     <div class="col-md-3 single-team">
@@ -346,7 +263,7 @@
                         </div>
                         <div class="meta-text mt-30 text-center">
                             <h4>Dora Walker</h4>
-                            <p>Lorem Ipsum</p>
+                            <p>Yoga</p>
                         </div>
                     </div>
                     <div class="col-md-3 single-team">
@@ -359,8 +276,8 @@
                             </div>
                         </div>
                         <div class="meta-text mt-30 text-center">
-                            <h4>Lena Keller</h4>
-                            <p>Lorem Ipsum</p>
+                            <h4>Paul Keller</h4>
+                            <p>Remise en forme</p>
                         </div>
                     </div>
                 </div>
@@ -369,13 +286,12 @@
         <!-- End team Area -->
 
         <!-- Start price Area -->
-        <section class="price-area pt-100" id="plan">
+        <section class="price-area pt-20 border-black" id="plans">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-60 col-lg-8">
+                    <div class="menu-content pb-20 col-lg-8">
                         <div class="title text-center">
-                            <h1 class="mb-10">Choisissez le plan idéal</h1>
-                            <p>Lorem Ipsum.</p>
+                            <h1 class="mb-10">Choisissez le plan qui vous correspond !</h1>
                         </div>
                     </div>
                 </div>
@@ -384,18 +300,13 @@
                         <div class="single-price">
                             <div class="top-sec d-flex justify-content-between">
                                 <div class="top-left">
-                                    <h4>Standard</h4>
-                                    <p>Pour l'<br>individuel</p>
+                                    <h4>Etudiant</h4>
+                                    <p>Pour <br>les petits budgets</p>
                                 </div>
                                 <div class="top-right">
                                     <h1>199€</h1>
                                 </div>
                             </div>
-                            <div class="bottom-sec">
-                                <p>
-                                    “Lorem Ipsum“
-                                </p>
-                            </div>
                             <div class="end-sec">
                                 <ul>
                                     <li>Avantage 1</li>
@@ -404,7 +315,7 @@
                                     <li>Avantage 4</li>
                                     <li>Avantage 5</li>
                                 </ul>
-                                <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
+                                <button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button>
                             </div>
                         </div>
                     </div>
@@ -412,18 +323,13 @@
                         <div class="single-price">
                             <div class="top-sec d-flex justify-content-between">
                                 <div class="top-left">
-                                    <h4>Business</h4>
-                                    <p>Pour les <br>petites entreprises</p>
+                                    <h4>Normal</h4>
+                                    <p>Pour les <br>plus grands sportifs</p>
                                 </div>
                                 <div class="top-right">
                                     <h1>€399</h1>
                                 </div>
                             </div>
-                            <div class="bottom-sec">
-                                <p>
-                                    “Lorem Ipsum“
-                                </p>
-                            </div>
                             <div class="end-sec">
                                 <ul>
                                     <li>Avantage 1</li>
@@ -432,7 +338,7 @@
                                     <li>Avantage 4</li>
                                     <li>Avantage 5</li>
                                 </ul>
-                                <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
+                                <button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button>
                             </div>
                         </div>
                     </div>
@@ -440,17 +346,12 @@
                         <div class="single-price">
                             <div class="top-sec d-flex justify-content-between">
                                 <div class="top-left">
-                                    <h4>Ultime</h4>
-                                    <p>Pour les <br>grandes entreprises</p>
+                                    <h4>Elite</h4>
+                                    <p>Pour les <br>plus grands sportifs</p>
                                 </div>
                                 <div class="top-right">
                                     <h1>499€</h1>
                                 </div>
-                            </div>
-                            <div class="bottom-sec">
-                                <p>
-                                    “Lorem Ipsum“
-                                </p>
                             </div>
                             <div class="end-sec">
                                 <ul>
@@ -460,7 +361,7 @@
                                     <li>Avantage 4</li>
                                     <li>Avantage 5</li>
                                 </ul>
-                                <button class="primary-btn price-btn mt-20">Purchase Plan<span class="lnr lnr-arrow-right"></span></button>
+                                <button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button>
                             </div>
                         </div>
                     </div>
@@ -470,68 +371,22 @@
         </section>
         <!-- End price Area -->
 
-        <!-- Start brand Area -->
-        <section class="brand-area section-gap">
-            <div class="container">
-                <div class="row logo-wrap">
-                        <a class="col single-img" href="#">
-                            <img class="d-block mx-auto" src="img/l1.png" alt="">
-                        </a>
-                        <a class="col single-img" href="#">
-                            <img class="d-block mx-auto" src="img/l2.png" alt="">
-                        </a>
-                        <a class="col single-img" href="#">
-                            <img class="d-block mx-auto" src="img/l3.png" alt="">
-                        </a>
-                        <a class="col single-img" href="#">
-                            <img class="d-block mx-auto" src="img/l4.png" alt="">
-                        </a>
-                        <a class="col single-img" href="#">
-                            <img class="d-block mx-auto" src="img/l5.png" alt="">
-                        </a>
-                </div>
-            </div>
-        </section>
-        <!-- End brand Area -->
-
-        <!-- Start callto Area -->
-        <section class="callto-area section-gap relative">
-            <div class="overlay overlay-bg"></div>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <h1 class="text-white">Lorem Ipsum</h1>
-                        <p class="text-white pt-20 pb-20">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore <br> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                        </p>
-                        <a class="primary-btn" href="#">Rejoignez-nous!</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End callto Area -->
-
-
         <!-- start footer Area -->
-        <footer class="footer-area section-gap">
+        <footer class="footer-area section-gap border-black">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
                             <h4>A propos de nous</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
-                            </p>
+                            <p>Notre salle de sport est situé à Belfort. Elle vous propose de nombreuses activités et il est possible de choisir l'abonnement par an ou par mois.</p>
                         </div>
                     </div>
                     <div class="col-lg-4  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
                             <h4>Nous contacter</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
-                            </p>
+                            <p>Tous les jours sauf le dimanche directement à la salle de sport, ainsi que par téléphone au </p>
                             <p class="number">
-                                032434XXXX <br>
+                                0329324758 <br>
                             </p>
                         </div>
                     </div>
@@ -561,7 +416,7 @@
                 <div class="footer-bottom row">
                     <p class="footer-text m-0 col-lg-6">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart3" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Projet TA70 | Template made <i class="icon-heart3" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                     <div class="footer-social col-lg-6">
