@@ -5,6 +5,7 @@
     ?>
 
     <header id="header" id="home">
+        <?php session_start(); ?>
         <?php include 'includes/banner.php'; ?>
         <?php include 'includes/menu.php'; ?>
     </header>

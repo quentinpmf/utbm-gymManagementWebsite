@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <div class="container">
     <div class="row header-top align-items-center">
         <div class="col-lg-4 col-sm-4 menu-top-left">

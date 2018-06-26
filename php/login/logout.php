@@ -7,6 +7,7 @@ include '../../includes/config.php';
 ?>
 
 <header id="header">
+    <?php session_start(); ?>
     <?php include '../../includes/banner.php'; ?>
 </header>
 <br>

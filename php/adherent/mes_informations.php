@@ -4,7 +4,7 @@
 <?php
 //config
 include "../login/connectToBDD/conn.php";
-//include '../../includes/checkIfRole/checkIfAdherent.php'; //TODO QUENTIN
+include '../../includes/checkIfRole/checkIfAdherent.php';
 include '../../includes/config.php';
 ?>
 
