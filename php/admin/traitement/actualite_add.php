@@ -4,7 +4,7 @@
 <?php
 //config
 include "../../login/connectToBDD/conn.php";
-include '../../../includes/checkIfRole/checkIfAdmin.php';
+include '../../../includes/checkIfRole/checkIfAdmin_traitement.php';
 include '../../../includes/config.php';
 session_start();
 
