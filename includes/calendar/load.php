@@ -6,13 +6,12 @@
  * Time: 01:29
  */
 
-$connect = new PDO('mysql:host=localhost;dbname=projetta70', 'root', '');
-
+include('../../php/login/connectToBDD/conn.php');
 $data = array();
 
 $query = "SELECT * FROM events ORDER BY id";
 
-$statement = $connect->prepare($query);
+$statement = $bdd->prepare($query);
 
 $statement->execute();
 
@@ -29,3 +28,4 @@ foreach($result as $row)
 }
 
 echo json_encode($data);
+?>

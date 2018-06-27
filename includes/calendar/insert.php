@@ -6,16 +6,12 @@
  * Time: 01:29
  */
 
-$connect = new PDO('mysql:host=localhost;dbname=projetta70', 'root', '');
-
+include '../../php/login/connectToBDD/conn.php';
+var_dump($_SESSION);
 if(isset($_POST["title"]))
 {
-    $query = "
- INSERT INTO events 
- (title, start_event, end_event) 
- VALUES (:title, :start_event, :end_event)
- ";
-    $statement = $connect->prepare($query);
+    $query = "INSERT INTO events (title, start_event, end_event) VALUES (:title, :start_event, :end_event)";
+    $statement = $bdd->prepare($query);
     $statement->execute(
         array(
             ':title'  => $_POST['title'],
@@ -24,3 +20,4 @@ if(isset($_POST["title"]))
         )
     );
 }
+?>

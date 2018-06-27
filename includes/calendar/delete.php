@@ -6,16 +6,15 @@
  * Time: 01:29
  */
 
+include '../../php/login/connectToBDD/conn.php';
 if(isset($_POST["id"]))
 {
-    $connect = new PDO('mysql:host=localhost;dbname=projetta70', 'root', '');
-    $query = "
- DELETE from events WHERE id=:id
- ";
-    $statement = $connect->prepare($query);
+    $query = "DELETE from events WHERE id=:id";
+    $statement = $bdd->prepare($query);
     $statement->execute(
         array(
             ':id' => $_POST['id']
         )
     );
 }
+?>

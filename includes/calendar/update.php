@@ -6,16 +6,12 @@
  * Time: 01:29
  */
 
-$connect = new PDO('mysql:host=localhost;dbname=projetta70', 'root', '');
+include '../../php/login/connectToBDD/conn.php';
 
 if(isset($_POST["id"]))
 {
-    $query = "
- UPDATE events 
- SET title=:title, start_event=:start_event, end_event=:end_event 
- WHERE id=:id
- ";
-    $statement = $connect->prepare($query);
+    $query = "UPDATE events SET title=:title, start_event=:start_event, end_event=:end_event WHERE id=:id";
+    $statement = $bdd->prepare($query);
     $statement->execute(
         array(
             ':title'  => $_POST['title'],
@@ -25,3 +21,4 @@ if(isset($_POST["id"]))
         )
     );
 }
+?>
