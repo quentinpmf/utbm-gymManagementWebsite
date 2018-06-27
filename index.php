@@ -1,15 +1,17 @@
-	<!DOCTYPE html>
-	<html lang="zxx" class="no-js">
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
     <?php include 'includes/config.php';
-    include "php/login/connectToBDD/conn.php";
-    ?>
+    include "php/login/connectToBDD/conn.php";?>
+</head>
 
-    <header id="header" id="home">
+    <body>
+<header id="header" id="home">
         <?php session_start(); ?>
         <?php include 'includes/banner.php'; ?>
         <?php include 'includes/menu.php'; ?>
-    </header>
-    <body>
+        <?php include 'includes/calendar/calendar.php';?>
+</header>
 
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
@@ -77,7 +79,7 @@
         <!-- End feature Area ACTUALITES -->
 
         <!-- Start top-course Area -->
-        <section class="top-course-area section-gap" id="cours">
+        <section class="team-area section-gap" id="cours">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="menu-content pb-20 col-lg-9">
@@ -133,85 +135,18 @@
         <!-- End top-course Area -->
 
         <!-- Start schedule Area -->
-        <section class="schedule-area section-gap border-black" id="planning">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="menu-content pb-20 col-lg-8">
-                        <div class="title text-center">
-                            <h1 class="mb-10">Calendrier de la semaine</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="table-wrap col-lg-12">
-                        <table class="schdule-table table table-bordered">
-                              <thead class="thead-light">
-                                <tr>
-                                  <th class="head" scope="col">Nom du cours</th>
-                                  <th class="head" scope="col">Lundi</th>
-                                  <th class="head" scope="col">Mardi</th>
-                                  <th class="head" scope="col">Mercredi</th>
-                                  <th class="head" scope="col">Jeudi</th>
-                                  <th class="head" scope="col">Vendredi</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th class="name" scope="row">Aero Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Fitness Aero</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                                <tr>
-                                  <th class="name" scope="row">Senior Fitness</th>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                  <td>10h00 <br> 12h00</td>
-                                </tr>
-                              </tbody>
-                        </table>
+        <section class="schedule-area section-gap border-black" id="schedule">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-70 col-lg-8">
+                    <div class="title text-center">
+                        <h1 class="text-black mb-10">Calendrier de la semaine</h1>
                     </div>
                 </div>
             </div>
+            <div id="calendar" style="padding-left:300px;padding-right:300px;">
+            </div>
         </section>
         <!-- End schedule Area -->
-
 
         <!-- Start team Area -->
         <section class="team-area section-gap border-black" id="coachs">
@@ -366,10 +301,10 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </section>
-        <!-- End price Area -->
+        </div>
+    </div>
+</section>
+<!-- End price Area -->
 
         <!-- start footer Area -->
         <footer class="footer-area section-gap border-black">

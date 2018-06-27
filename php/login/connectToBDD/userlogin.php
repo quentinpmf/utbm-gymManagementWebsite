@@ -15,6 +15,7 @@
             $_SESSION['UserCP']=$user->getUserCP();
 			$_SESSION['UserVille']=$user->getUserVille();
 			$_SESSION['UserTel']=$user->getUserTel();
+            $_SESSION['UserPaiementChoisi']=$user->getUserPaiementChoisi();
             $_SESSION['UserNumAdherent']=$user->getUserNumAdherent();
 			$_SESSION['UserIdAbonnement']=$user->getUserIdAbonnement();
 			$_SESSION['UserIdAbonnementTexte']=$user->getUserIdAbonnementTexte();

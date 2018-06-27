@@ -22,6 +22,7 @@
                                     <li><a href="../adherent/muscles_2d.php">Muscles 2D</a></li>
                                     <li><a href="../adherent/cours.php">Mes cours</a></li>
                                     <li><a href="../adherent/factures.php">Mes factures</a></li>
+                                    <li><a href="../adherent/abonnement.php">Mon abonnement</a></li>
                                 </ul>
                             </li>
                             <?php

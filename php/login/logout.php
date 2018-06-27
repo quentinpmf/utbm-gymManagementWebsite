@@ -16,7 +16,7 @@ include '../../includes/config.php';
     <section class="section-gap-other-pages">
         <div class="title text-center">
 
-            <h1 class="mb-10">Déconnexon</h1>
+            <h1 style="margin-top: 70px" class="mb-10">Déconnexion</h1>
 
             <?php
 
