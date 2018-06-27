@@ -20,6 +20,7 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 firstDay: 1,
+                defaultView:'agendaWeek',
                 locale: 'fr',
                 lang: 'fr',
                 events: 'includes/calendar/load.php',
