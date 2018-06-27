@@ -2,8 +2,7 @@
 <html lang="fr" class="no-js">
 <head>
     <?php include 'includes/config.php';
-    include "php/login/connectToBDD/conn.php";
-    include 'includes/calendar/calendar.php'; ?>
+    include "php/login/connectToBDD/conn.php";?>
 </head>
 
     <body>
@@ -11,7 +10,8 @@
         <?php session_start(); ?>
         <?php include 'includes/banner.php'; ?>
         <?php include 'includes/menu.php'; ?>
-    </header>
+        <?php include 'includes/calendar/calendar.php';?>
+</header>
 
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
