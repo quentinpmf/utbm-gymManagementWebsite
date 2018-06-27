@@ -79,7 +79,7 @@
         <!-- End feature Area ACTUALITES -->
 
         <!-- Start top-course Area -->
-        <section class="top-course-area section-gap" id="cours">
+        <section class="team-area section-gap" id="cours">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="menu-content pb-20 col-lg-9">
@@ -134,20 +134,19 @@
         </section>
         <!-- End top-course Area -->
 
-<!-- Start schedule Area -->
-<section class="schedule-area section-gap" id="schedule">
-    <div class="row d-flex justify-content-center">
-        <div class="menu-content pb-70 col-lg-8">
-            <div class="title text-center">
-                <h1 class="text-black mb-10">Calendrier de la semaine</h1>
+        <!-- Start schedule Area -->
+        <section class="schedule-area section-gap border-black" id="schedule">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-70 col-lg-8">
+                    <div class="title text-center">
+                        <h1 class="text-black mb-10">Calendrier de la semaine</h1>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div id="calendar" style="padding-left:300px;padding-right:300px;">
-    </div>
-</section>
-<!-- End schedule Area -->
-
+            <div id="calendar" style="padding-left:300px;padding-right:300px;">
+            </div>
+        </section>
+        <!-- End schedule Area -->
 
         <!-- Start team Area -->
         <section class="team-area section-gap border-black" id="coachs">
