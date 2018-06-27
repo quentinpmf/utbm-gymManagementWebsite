@@ -23,7 +23,10 @@
                             Fitness Club
                         </h1>
                         <p class="text-white text-uppercase pt-140 pb-170">
-                            Rejoignez-nous !
+                            Rejoignez-nous : <br><br>
+                            Du Lundi au Samedi de 06h à 20h
+                            <br>
+                            Le Dimanche de 08h à 12h
                         </p>
                     </div>
                 </div>
@@ -48,13 +51,12 @@
                     $req = $bdd->query("SELECT date_creation,titre,image,description,id FROM actualites WHERE publie = 1 ORDER BY date_creation desc LIMIT 3");
                     while($data = $req->fetch())
                     {
-
-                        echo '<div class="col-lg-2">';
+                        echo '<div class="col-lg-1">';
                             echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
                                 echo '<img class="img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
                             echo '</a>';
                         echo '</div >';
-                        echo '<div class="col-lg-2 imgActualites" >';
+                        echo '<div class="col-lg-3 imgActualites" >';
                             echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
                                 echo '<div class="dateActualites" >' . substr($data['date_creation'],0,10) . '</div >';
                                 echo '<h1>' . utf8_encode($data['titre']) . '</h1 >';
@@ -221,7 +223,7 @@
         <!-- End team Area -->
 
         <!-- Start price Area -->
-        <section class="price-area pt-20 border-black" id="plans">
+        <section class="price-area pt-20 pb-20 border-black" id="plans">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="menu-content pb-20 col-lg-8">
@@ -244,13 +246,14 @@
                             </div>
                             <div class="end-sec">
                                 <ul>
-                                    <li>Avantage 1</li>
-                                    <li>Avantage 2</li>
-                                    <li>Avantage 3</li>
-                                    <li>Avantage 4</li>
-                                    <li>Avantage 5</li>
+                                    <li style="color:green">Accès au club entre 8H et 20H</li>
+                                    <li style="color:green">Accès aux cours collectifs</li>
+                                    <li style="color:green">Accès aux cours personnalisés</li>
+                                    <li style="color:red"><s>Programme diététique personnalisé</s></li>
+                                    <li style="color:red"><s>Accès au parking privé</s></li>
+                                    <li style="color:red"><s>Accès au sauna</s></li>
                                 </ul>
-                                <button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button>
+                                <a href="php/adherent/abonnement.php?abonnement=Etudiant"><button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button></a>
                             </div>
                         </div>
                     </div>
@@ -267,13 +270,15 @@
                             </div>
                             <div class="end-sec">
                                 <ul>
-                                    <li>Avantage 1</li>
-                                    <li>Avantage 2</li>
-                                    <li>Avantage 3</li>
-                                    <li>Avantage 4</li>
-                                    <li>Avantage 5</li>
+                                    <li style="color:green">Accès au club entre 6H et 22H</li>
+                                    <li style="color:green">Accès aux cours collectifs</li>
+                                    <li style="color:green">Accès aux cours personnalisés</li>
+                                    <li style="color:green">Programme diététique personnalisé</li>
+                                    <li style="color:green">Accès au parking privé</li>
+                                    <li style="color:red"><s>Accès au sauna</s></li>
+
                                 </ul>
-                                <button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button>
+                                <a href="php/adherent/abonnement.php?abonnement=Normal"><button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button></a>
                             </div>
                         </div>
                     </div>
@@ -290,13 +295,14 @@
                             </div>
                             <div class="end-sec">
                                 <ul>
-                                    <li>Avantage 1</li>
-                                    <li>Avantage 2</li>
-                                    <li>Avantage 3</li>
-                                    <li>Avantage 4</li>
-                                    <li>Avantage 5</li>
+                                    <li style="color:green">Accès au club entre 6H et 22H</li>
+                                    <li style="color:green">Accès aux cours collectifs</li>
+                                    <li style="color:green">Accès aux cours personnalisés</li>
+                                    <li style="color:green">Programme diététique personnalisé</li>
+                                    <li style="color:green">Accès au parking privé</li>
+                                    <li style="color:green">Accès au sauna</li>
                                 </ul>
-                                <button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button>
+                                <a href="php/adherent/abonnement.php?abonnement=Elite"><button class="primary-btn price-btn mt-20">Acheter<span class="lnr lnr-arrow-right"></span></button></a>
                             </div>
                         </div>
                     </div>
