@@ -7,8 +7,8 @@ include '../../includes/config.php';
 ?>
 
 <header id="header">
-    <?php session_start(); ?>
     <?php include '../../includes/banner.php'; ?>
+    <?php session_start(); ?>
 </header>
 <br>
 
