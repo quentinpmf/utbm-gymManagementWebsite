@@ -17,7 +17,7 @@ include '../../includes/config.php';
     <section class="section-gap-other-pages">
         <div class="title text-center">
 
-            <h1 class="mb-10"><u>Authentification</u></h1>
+            <h1 style="margin-top: 70px" class="mb-10">Authentification</h1>
 
             <?php if(isset($_GET['error'])){ ?>
                 <div class="alert alert-danger" role="alert">
