@@ -3,9 +3,9 @@
 
 <?php
 //config
-include "../login/connectToBDD/conn.php";
-include '../../includes/config.php';
-
+include "../../login/connectToBDD/conn.php";
+include '../../../includes/checkIfRole/checkIfAdmin.php';
+include '../../../includes/config.php';
 
 $id = $_GET['id'];
 $req = $bdd->prepare('UPDATE actualites SET publie = :publie WHERE id = :id');
@@ -26,5 +26,5 @@ elseif(isset($_GET['action']) && $_GET['action'] == 'depublier')
     ));
 }
 
-header("location: actualites_accueil.php");
+header("location: ../actualites_accueil.php");
 ?>

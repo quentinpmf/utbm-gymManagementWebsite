@@ -1,3 +1,0 @@
-Allemagne;Berlin;357022;82057
-Autriche;Vienne;83859;8075
-Belgique;Bruxelles;30518;10192
