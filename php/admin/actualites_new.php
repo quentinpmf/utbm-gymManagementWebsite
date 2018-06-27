@@ -22,7 +22,7 @@ include '../../includes/config.php';
         <form enctype="multipart/form-data" method="post" action="traitement/actualite_add.php">
             <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" cellspacing="0" cellpadding="2" border="0" width="400" align="center">
                 <tr>
-                    <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="55" required autofocus></td>
+                    <td colspan="2"><input type="text" name="titre" placeholder="Titre de l'actualité" size="50" maxlength="50" required autofocus></td>
                 </tr>
                 <tr>
                     <td colspan="2"><textarea rows="10" cols="100" name="description" placeholder="Votre texte ici..." required></textarea></td>
