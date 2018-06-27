@@ -321,7 +321,7 @@
                             <h4>Nous contacter</h4>
                             <p>Tous les jours sauf le dimanche directement à la salle de sport, ainsi que par téléphone au </p>
                             <p class="number">
-                                0329324758 <br>
+                                03 29 32 47 58 <br>
                             </p>
                         </div>
                     </div>
