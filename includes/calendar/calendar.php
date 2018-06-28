@@ -90,7 +90,9 @@
 
                 //affichage de l'evenement au clic
                 eventClick:  function(event, jsEvent, view) {
+                    console.log('event',event);
                     $('#modalTitle').html(event.title);
+                    $('.popup-calendar-nb_inscrit').html(event.nombre_inscrit);
                     $('#modalBody').html(event.description);
                     $('#eventUrl').attr('href',event.url);
                     $('#calendarModal').modal();

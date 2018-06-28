@@ -155,11 +155,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        Horraire du cours : 18h00-19h00
                         <h4 id="modalTitle" class="modal-title"></h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                     </div>
                     <div id="modalBody" class="modal-body">
+                        <div class="popup-calendar-nb_inscrit"></div>
                         Liste des utilisateurs participants (coach - webmaster)
                         Nb place autorisées (coach - webmaster)
                         nb place restantes (all)
