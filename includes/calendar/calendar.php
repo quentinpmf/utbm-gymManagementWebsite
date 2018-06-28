@@ -72,6 +72,8 @@
                     });
                 },
 
+                // suppresion de l'event
+                /*
                 eventClick: function (event) {
                     if (confirm("Êtes-vous sûr de vouloir le supprimer ?")) {
                         var id = event.id;
@@ -84,6 +86,14 @@
                             }
                         })
                     }
+                }, */
+
+                //affichage de l'evenement au clic
+                eventClick:  function(event, jsEvent, view) {
+                    $('#modalTitle').html(event.title);
+                    $('#modalBody').html(event.description);
+                    $('#eventUrl').attr('href',event.url);
+                    $('#calendarModal').modal();
                 },
 
             });
