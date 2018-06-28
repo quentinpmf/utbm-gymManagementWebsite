@@ -3026,8 +3026,29 @@ h1
   word-wrap: break-word;
 }
 
+.tableAfficherActualites img {
+  max-width: 50%;
+  height: auto;
+}
+
+.trBordure{
+  border:1px solid black;
+}
+
+.cubeActuAccueil{
+  background-size: cover;
+  width: auto;
+  height: 200px;
+}
+
 /* =================================== Autres =================================== */
 .border-black
 {
   border-top:2px solid black;
+}
+
+/* =================================== Header Factures =================================== */
+.tableauFactures th {
+  background-color: #3B5FAB;
+  color: white;
 }

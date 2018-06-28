@@ -20,7 +20,11 @@ include '../../includes/config.php';
         <h1 style="margin-top: 70px" class="mb-10">Facturation</h1>
 
         <form method="post" action="generer_pdf.php">
-            <table style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" align="center">
+            <table class="tableauFactures" style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" align="center">
+                <tr>
+                    <th>Adhérent</th>
+                    <th>Liste des factures disponibles</th>
+                </tr>
 
                 <?php
                 //récuperer infos table abonnements_utilisateurs

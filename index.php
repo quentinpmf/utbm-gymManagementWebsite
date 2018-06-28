@@ -51,13 +51,13 @@
                     $req = $bdd->query("SELECT date_creation,titre,image,description,id FROM actualites WHERE publie = 1 ORDER BY date_creation desc LIMIT 3");
                     while($data = $req->fetch())
                     {
-                        echo '<div class="col-lg-1">';
-                            echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
-                                echo '<img class="img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
+                        echo '<div class="col-lg-2">';
+                            echo '<a href="php/accueil/actualites_affichage.php?id=' . $data['id'] . '">';
+                                echo '<img class="cubeActuAccueil img-fluid" src = "img/actualites/' . $data['image'] .'" alt = "">';
                             echo '</a>';
                         echo '</div >';
-                        echo '<div class="col-lg-3 imgActualites" >';
-                            echo '<a href="actualites_affichage.php?id=' . $data['id'] . '">';
+                        echo '<div class="col-lg-2 imgActualites" >';
+                            echo '<a href="php/accueil/actualites_affichage.php?id=' . $data['id'] . '">';
                                 echo '<div class="dateActualites" >' . substr($data['date_creation'],0,10) . '</div >';
                                 echo '<h1>' . utf8_encode($data['titre']) . '</h1 >';
 
