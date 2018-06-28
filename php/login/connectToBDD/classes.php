@@ -1,7 +1,7 @@
 <?php
 
 class user{
-    private $UserId, $UserEmail, $UserPassword, $UserNom, $UserPrenom, $UserDateNaissance, $UserAdress, $UserCP, $UserVille, $UserTel, $UserPaiementChoisi, $UserIdAbonnementTexte, $UserIdAbonnementTarif, $UserIdAbonnement, $UserNumAdherent, $UserDateAdhesion, $UserRole, $UserBloque;
+    private $UserId, $UserEmail, $UserPassword, $UserNom, $UserPrenom, $UserDateNaissance, $UserFichierAutorisationParentale, $UserIdAutorisationParentale, $UserAdress, $UserCP, $UserVille, $UserTel, $UserPaiementChoisi, $UserIdAbonnementTexte, $UserIdAbonnementTarif, $UserIdAbonnement, $UserNumAdherent, $UserDateAdhesion, $UserRole, $UserBloque;
 
 	/*Création de fonction pour allez chercher les informations */
 	
@@ -29,12 +29,28 @@ class user{
         $this->UserPassword=$UserPassword;
     }
 
-    //Password
+    //Date de naissance
     public function getUserDateNaissance(){
         return $this->UserDateNaissance;
     }
     public function setUserDateNaissance($UserDateNaissance){
         $this->UserDateNaissance=$UserDateNaissance;
+    }
+
+    //Autorisation aprentale
+    public function getUserFichierAutorisationParentale(){
+        return $this->UserFichierAutorisationParentale;
+    }
+    public function setUserFichierAutorisationParentale($UserFichierAutorisationParentale){
+        $this->UserFichierAutorisationParentale=$UserFichierAutorisationParentale;
+    }
+
+    //Autorisation aprentale
+    public function getUserIdAutorisationParentale(){
+        return $this->UserIdAutorisationParentale;
+    }
+    public function setUserIdAutorisationParentale($UserIdAutorisationParentale){
+        $this->UserIdAutorisationParentale=$UserIdAutorisationParentale;
     }
 
     //Nom
@@ -207,17 +223,19 @@ class user{
 
 	public function InsertUser(){
         include "conn.php";
-        $req=$bdd->prepare("INSERT INTO utilisateurs(email,password,nom,prenom,date_naissance,adresse,cp,ville,telephone,num_adherent,role,bloque) VALUES (:UserEmail,:UserPassword,:UserNom,:UserPrenom,:UserDateNaissance,:UserAdress,:UserCP,:UserVille,:UserTel,:UserNumAdherent,:UserRole,:UserBloque)");
+        $req=$bdd->prepare("INSERT INTO utilisateurs(email,password,nom,prenom,date_naissance,autorisation_parentale,adresse,cp,ville,telephone,paiement_choisi,num_adherent,role,bloque) VALUES (:UserEmail,:UserPassword,:UserNom,:UserPrenom,:UserDateNaissance,:UserIdAutorisationParentale,:UserAdress,:UserCP,:UserVille,:UserTel, :UserPaiementChoisi, :UserNumAdherent,:UserRole,:UserBloque)");
         $req->execute(array(
 			'UserEmail'=>$this->getUserEmail(),
 			'UserPassword'=>$this->getUserPassword(),
 			'UserNom'=>$this->getUserNom(),
 			'UserPrenom'=>$this->getUserPrenom(),
 			'UserDateNaissance'=>$this->getUserDateNaissance(),
+			'UserIdAutorisationParentale'=>0,
 			'UserAdress'=>$this->getUserAdress(),
 			'UserCP'=>$this->getUserCP(),
 			'UserVille'=>$this->getUserVille(),
 			'UserTel'=>$this->getUserTel(),
+			'UserPaiementChoisi'=>$this->getUserPaiementChoisi(),
 			'UserNumAdherent'=>$this->getUserNumAdherent(),
 			'UserRole'=>$this->getUserRole(),
 			'UserBloque'=>$this->getUserBloque()
@@ -236,6 +254,37 @@ class user{
                 $this->setUserId($data['id']);
             }
         }
+    }
+
+    public function InsertAutorisationParentale($nomFichier){
+        include "conn.php";
+        $req=$bdd->prepare("INSERT INTO autorisation_parentale(id_utilisateur, nom_fichier , valide) VALUES (:UserId,:NomFichier,:boolValide)");
+        $req->execute(array(
+            'UserId'=>$this->getUserId(),
+            'NomFichier'=>$nomFichier,
+            'boolValide'=>0,
+        ));
+
+        $req2=$bdd->prepare("SELECT * FROM autorisation_parentale WHERE id_utilisateur=:UserId");
+        $req2->execute(array(
+            'UserId'=>$this->getUserId()
+        ));
+        if($req2->rowCount()==0){
+            header("Location: ../login.php?error=InsertUser"); /*Erreur de connexion*/
+            return false;
+        }
+        else{
+            while($data=$req2->fetch()){
+                $this->setUserIdAutorisationParentale($data['id']);
+            }
+        }
+
+        //on update l'id autorisation parentale dans la table utilisateurs
+        $req=$bdd->prepare("UPDATE utilisateurs SET autorisation_parentale = :UserIdAutorisationParentale WHERE id = :UserId");
+        $req->execute(array(
+            'UserIdAutorisationParentale'=>$this->getUserIdAutorisationParentale(),
+            'UserId'=>$this->getUserId()
+        ));
     }
 }
     

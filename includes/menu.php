@@ -55,6 +55,7 @@
                                     <li class="menu-active"><a href="../projetTA70/php/admin/factures.php">Factures</a></li>
                                     <li class="menu-active"><a href="../projetTA70/php/admin/actualites_accueil.php">Actualités</a></li>
                                     <li class="menu-active"><a href="../projetTA70/php/admin/stats.php">Statistiques</a></li>
+                                    <li class="menu-active"><a href="../projetTA70/php/admin/autorisation_parentale.php">Autorisations parentales</a></li>
                                 </ul>
 
                             </li>

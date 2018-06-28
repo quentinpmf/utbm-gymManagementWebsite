@@ -55,8 +55,8 @@
                                     <li class="menu-active"><a href="../admin/factures.php">Factures</a></li>
                                     <li class="menu-active"><a href="../admin/actualites_accueil.php">Actualités</a></li>
                                     <li class="menu-active"><a href="../admin/stats.php">Statistiques</a></li>
+                                    <li class="menu-active"><a href="../admin/autorisation_parentale.php">Autorisations parentales</a></li>
                                 </ul>
-
                             </li>
                             <?php
                             break;

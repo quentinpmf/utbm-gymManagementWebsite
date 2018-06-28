@@ -9,7 +9,7 @@ include '../../includes/config.php';
 <header id="header">
     <?php session_start(); ?>
     <?php include '../../includes/banner.php'; ?>
-    <?php include '../../includes/menu.php'; ?>
+    <?php include '../../includes/menu_distant.php'; ?>
 </header>
 <br>
 
