@@ -54,7 +54,7 @@
                                 <ul>
                                     <li class="menu-active"><a href="../admin/factures.php">Factures</a></li>
                                     <li class="menu-active"><a href="../admin/actualites_accueil.php">Actualités</a></li>
-                                    <li class="menu-active"><a href="../admin/connect_en_tant_que.php">Connexion en tant que</a></li>
+                                    <li class="menu-active"><a href="../admin/stats.php">Statistiques</a></li>
                                 </ul>
 
                             </li>
