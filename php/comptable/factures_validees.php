@@ -17,7 +17,7 @@ include '../../includes/config.php';
 <section class="section-gap-other-pages">
     <div class="title text-center">
 
-        <h1 style="margin-top: 70px" class="mb-10">Factures à valider</h1>
+        <h1 style="margin-top: 70px" class="mb-10">Factures validées</h1>
 
         <form method="post">
             <table class="tableauFactures" style="border: 1px solid black; border-collapse: separate; border-spacing: 5px;" align="center">
@@ -42,7 +42,7 @@ include '../../includes/config.php';
                                 <select name="<?php echo($selectName) ?>" id="<?php echo($selectName) ?>">
                                     <option value="" selected></option>
                                     <?php
-                                        $factures = $bdd->query("SELECT id,chemin,date_creation,date_validation FROM factures WHERE id_user='$id_user' AND statut=0");
+                                        $factures = $bdd->query("SELECT id,chemin,date_creation,date_validation FROM factures WHERE id_user='$id_user' AND statut=1");
                                         while ($donnees_factures = $factures->fetch())
                                         {
                                             $id = htmlspecialchars($donnees_factures['id']);
@@ -56,15 +56,6 @@ include '../../includes/config.php';
                                 </select>
                             </td>
                             <td align="right"><img onclick="if( $('<?php echo($selectName) ?>').context.all.<?php echo($selectName) ?>.value){window.location.href='/projetTA70/docs_client/FACT/'+$('<?php echo($selectName) ?>').context.all.<?php echo($selectName) ?>.value}" src="../../img/loupe.jpg"></a></td>
-                            <?php
-                            $factures = $bdd->query("SELECT id FROM factures WHERE id_user='$id_user' AND statut=0");
-                            while ($donnees_factures = $factures->fetch())
-                            {
-                                $id = htmlspecialchars($donnees_factures['id']);
-                                echo('<td align="right"><a href="traitement/valider_facture.php?factureid='.$id.'"><img src="../../img/checkbox_green.png"></a></td>');
-                            }
-                            ?>
-
                         </tr>
                     <?php
                 }
