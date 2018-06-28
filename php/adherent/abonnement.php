@@ -29,7 +29,7 @@
                                 if($_GET['paiement'] == "ok")
                                 {
                                     //correspondance en 1/2/3 avec BDD
-                                    $paiement_choisi = $bdd->query("SELECT * FROM abonnements WHERE texte = ".$_SESSION['UserPaiementChoisi']);
+                                    $paiement_choisi = $bdd->query("SELECT id FROM abonnements WHERE texte = ".$_SESSION['UserPaiementChoisi']);
                                     while($donnees_paiement_choisi=$paiement_choisi->fetch(PDO::FETCH_OBJ))
                                     {
                                         //surcharge de la valeur UserPaiementChoisi dans la session avec l'id 1/2/3
@@ -44,7 +44,7 @@
                                         'date_abonnement'=>$_SESSION['UserDateAdhesion']
                                     ));
 
-                                    $req2=$bdd->prepare("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur=:UserId");
+                                    $req2=$bdd->prepare("SELECT id_abonne FROM abonnements_utilisateurs WHERE id_utilisateur=:UserId");
                                     $req2->execute(array(
                                         'UserId'=>$_SESSION['UserId'],
                                     ));
@@ -115,7 +115,7 @@
                                                         <td>
                                                             <select id="selectPaiement" name="libelle_os0">
                                                                 <?php
-                                                                $abonnements = $bdd->query("SELECT * FROM abonnements");
+                                                                $abonnements = $bdd->query("SELECT id,texte,tarif FROM abonnements");
                                                                 while($donnees_abonnements=$abonnements->fetch(PDO::FETCH_OBJ))
                                                                 {
                                                                     $abo_id=$donnees_abonnements->id;

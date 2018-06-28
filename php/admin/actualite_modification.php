@@ -8,7 +8,7 @@ include '../../includes/checkIfRole/checkIfAdmin.php';
 include '../../includes/config.php';
 
 $id = $_GET['id'];
-$req = $bdd->query("SELECT * FROM actualites WHERE id = $id");
+$req = $bdd->query("SELECT titre,description,image,publie FROM actualites WHERE id = $id");
 $data = $req->fetch();
 ?>
 <body>

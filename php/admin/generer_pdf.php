@@ -25,13 +25,13 @@ class PDF extends FPDF
         require('../login/connectToBDD/conn.php');
         $id_utilisateur = $_GET['userid'];
 
-        $abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
+        $abonnements_utilisateurs = $bdd->query("SELECT id_abonnement,id_utilisateur FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
         while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
         {
             $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
             $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
 
-            $user = $bdd->query("SELECT * FROM utilisateurs WHERE id='$id_utilisateur'");
+            $user = $bdd->query("SELECT id,nom,prenom,adresse,cp,ville FROM utilisateurs WHERE id='$id_utilisateur'");
             while ($donnees_user = $user->fetch())
             {
                 $user_id = htmlspecialchars($donnees_user['id']);
@@ -159,12 +159,12 @@ class PDF extends FPDF
         require('../login/connectToBDD/conn.php');
 
         $id_utilisateur = $_GET['userid'];
-        $abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
+        $abonnements_utilisateurs = $bdd->query("SELECT id_abonnement FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
         while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
         {
             $id_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonnement']);
 
-            $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
+            $abonnement = $bdd->query("SELECT texte,tarif FROM abonnements WHERE id='$id_abonnement'");
             while ($donnees_abonnement = $abonnement->fetch())
             {
                 $abonnement_texte = htmlspecialchars($donnees_abonnement['texte']);
@@ -187,7 +187,7 @@ ob_get_clean(); //je vide le tampon de sortie
 $pdf = new PDF();
 
 $id_utilisateur = $_GET['userid'];
-$abonnements_utilisateurs = $bdd->query("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
+$abonnements_utilisateurs = $bdd->query("SELECT id_abonne,id_abonnement,id_utilisateur,date_abonnement FROM abonnements_utilisateurs WHERE id_utilisateur='$id_utilisateur'");
 while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
 {
     $id_abonne = htmlspecialchars($donnees_abonnements_utilisateurs['id_abonne']);
@@ -195,7 +195,7 @@ while ($donnees_abonnements_utilisateurs = $abonnements_utilisateurs->fetch())
     $id_utilisateur = htmlspecialchars($donnees_abonnements_utilisateurs['id_utilisateur']);
     $date_abonnement = htmlspecialchars($donnees_abonnements_utilisateurs['date_abonnement']);
 
-    $abonnement = $bdd->query("SELECT * FROM abonnements WHERE id='$id_abonnement'");
+    $abonnement = $bdd->query("SELECT texte,tarif FROM abonnements WHERE id='$id_abonnement'");
     while ($donnees_abonnement = $abonnement->fetch())
     {
         $abonnement_texte = htmlspecialchars($donnees_abonnement['texte']);

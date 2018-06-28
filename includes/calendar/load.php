@@ -9,7 +9,7 @@
 include('../../php/login/connectToBDD/conn.php');
 $data = array();
 
-$query = "SELECT * FROM events ORDER BY id";
+$query = "SELECT id,title,start_event,end_event FROM events ORDER BY id";
 
 $statement = $bdd->prepare($query);
 

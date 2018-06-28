@@ -196,7 +196,7 @@ class user{
             }
 
             //récuperer infos table abonnements_utilisateurs
-            $req2=$bdd->prepare("SELECT * FROM abonnements_utilisateurs WHERE id_utilisateur=:UserId");
+            $req2=$bdd->prepare("SELECT id_abonnement,date_abonnement FROM abonnements_utilisateurs WHERE id_utilisateur=:UserId");
             $req2->execute(array(
                 'UserId'=>$this->getUserId()
             ));
@@ -206,7 +206,7 @@ class user{
             }
 
             //récuperer infos table abonnements
-            $req3=$bdd->prepare("SELECT * FROM abonnements WHERE id=:UserIdAbonnement");
+            $req3=$bdd->prepare("SELECT texte,tarif FROM abonnements WHERE id=:UserIdAbonnement");
             $req3->execute(array(
                 'UserIdAbonnement'=>$this->getUserIdAbonnement()
             ));
@@ -241,7 +241,7 @@ class user{
 			'UserBloque'=>$this->getUserBloque()
         ));
 
-        $req2=$bdd->prepare("SELECT * FROM utilisateurs WHERE email=:UserEmail");
+        $req2=$bdd->prepare("SELECT id FROM utilisateurs WHERE email=:UserEmail");
         $req2->execute(array(
             'UserEmail'=>$this->getUserEmail()
         ));
@@ -265,7 +265,7 @@ class user{
             'boolValide'=>0,
         ));
 
-        $req2=$bdd->prepare("SELECT * FROM autorisation_parentale WHERE id_utilisateur=:UserId");
+        $req2=$bdd->prepare("SELECT id FROM autorisation_parentale WHERE id_utilisateur=:UserId");
         $req2->execute(array(
             'UserId'=>$this->getUserId()
         ));

@@ -28,7 +28,7 @@ include '../../includes/config.php';
 
                 <?php
                 //récuperer infos table abonnements_utilisateurs
-                $allUtilisateurs=$bdd->prepare("SELECT * FROM utilisateurs WHERE id!=:UserId ORDER BY utilisateurs.nom ASC");
+                $allUtilisateurs=$bdd->prepare("SELECT nom,prenom,id FROM utilisateurs WHERE id!=:UserId ORDER BY utilisateurs.nom ASC");
                 $allUtilisateurs->execute(array(
                     'UserId'=>$_SESSION['UserId']
                 ));
@@ -41,7 +41,7 @@ include '../../includes/config.php';
                                     <option value="" selected></option>
                                     <?php
                                         $id_user = $data['id'];
-                                        $factures = $bdd->query("SELECT * FROM factures WHERE id_user='$id_user'");
+                                        $factures = $bdd->query("SELECT id,chemin,date_creation,date_validation FROM factures WHERE id_user='$id_user'");
                                         while ($donnees_factures = $factures->fetch())
                                         {
                                             $id = htmlspecialchars($donnees_factures['id']);
