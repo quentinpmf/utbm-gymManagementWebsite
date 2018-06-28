@@ -4,6 +4,7 @@ require('../login/connectToBDD/conn.php');
 include '../../includes/checkIfRole/checkIfAdmin.php';
 
 date_default_timezone_set('Europe/Paris');
+setlocale(LC_TIME, 'fr_FR.utf8','fra');
 
 //je génére la facture
 class PDF extends FPDF
@@ -71,7 +72,7 @@ class PDF extends FPDF
         // Facture
         $this->SetFont('Arial','B',12);
         $this->Cell(80);
-        $this->Cell(30,7,'FACTURE',0,0,'C');
+        $this->Cell(30,7,'Facture du mois de '.strftime('%B %Y'),0,0,'C');
 
         // N° facture
         $this->Cell(80,7,''.utf8_decode('N° : '.$code_commande.''),0,1,'R');
@@ -113,12 +114,16 @@ class PDF extends FPDF
         $this->SetFont('Arial','B',10);
         $this->Cell(100,5,$user_cp." ".$user_ville,'LR',1,'C');
 
-        // fax
+        //site web
         $this->SetFont('Arial','',10);
-        $this->Cell(40,5,'Site. utbm.fr',0,0,'C');
+        $this->Cell(40,5,'Site : fitness-club.fr',0,0,'C');
+
+        //email
+        $this->SetFont('Arial','',10);
+        $this->Cell(40,5,'E-mail : contact@fitness-club.fr',0,0,'C');
 
         //espace
-        $this->Cell(50);
+        $this->Cell(10);
         $this->Cell(100,5,'','BLR',1,'C');
 
         // passe la ligne
@@ -171,12 +176,23 @@ class PDF extends FPDF
                 $abonnement_tarif = htmlspecialchars($donnees_abonnement['tarif']);
             }
         }
-
-        // tarif net a payer
+        // code produit
         $this->Cell(160,7,''.$abonnement_texte.utf8_decode(' 1 mois '),'LBR',0,'L');
 
-        // tarif net a payer
+        // produit
+        $this->Cell(160,7,''.$abonnement_texte.utf8_decode(' 1 mois '),'LBR',0,'L');
+
+        // Qté
+        $this->Cell(160,7,''.$abonnement_texte.utf8_decode(' 1 mois '),'LBR',0,'L');
+
+        // PUHT
         $this->Cell(30,7,''.$abonnement_tarif.chr(128),'BR',1,'R');
+
+        // Montant HT
+        $this->Cell(30,7,''.$abonnement_tarif.chr(128),'BR',1,'R');
+
+        // TVA
+        $this->Cell(30,7,'20,00','BR',1,'R');
 
         //.chr(128) = €
     }
@@ -207,12 +223,18 @@ $code_commande = 'FACT_'.$id_abonnement;
 $chemin = $code_commande.'_'.date("Y-m-d").'.pdf';
 
 // Titres des colonnes
-$header_tableau = array(utf8_decode('Désignation'), 'Total TTC');
+$headers_invoice_information = array(utf8_decode('Numéro'), 'Date','Code client',utf8_decode('Date d\'échéance'));
+$headers_payment = array('Code', 'Description','Quantité','P.U. HT','Montant HT','TVA');
+$headers_maturity = array('Date d\'échéance', 'Mode de paiement','Montant de l\'échéance','Solde dû');
+$headers_tva = array('Taux', 'Base HT','Montant TVA');
+$headers_ttc = array('Total HT Net', 'Total TVA','Total TTC','Acomptes','Net à payer');
+
 // Chargement des données
-$pdf->AliasNbPages(); // Define an alias for total number of pages
+//$pdf->AliasNbPages(); // Define an alias for total number of pages
 $pdf->AddPage(); // Start a new page - contient header() / footer()
 $pdf->SetFont('Times','',12); //police
-$pdf->FancyTable($header_tableau); //corps du devis (tableau+données)
+$pdf->FancyTable($headers_invoice_information); //corps du devis (tableau+données)
+$pdf->FancyTable($headers_invoice_information); //corps du devis (tableau+données)
 $chemin_full=$_SERVER['DOCUMENT_ROOT'].'projetTA70/docs_client/FACT/'.$chemin;
 $pdf->Output($chemin_full,'F');
 ob_get_clean(); //je vide le tampon de sortie
