@@ -14,6 +14,10 @@ var_dump($_FILES);
 
 if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name']) && ($_FILES['image']['name'] !== ""))
 {
+    $dossier = '../../../img/actualites/';
+    if(!is_dir($dossier)){
+        mkdir($dossier);
+    }
     file_put_contents('../../../img/actualites/'.$_FILES['image']['name'], file_get_contents($_FILES['image']['tmp_name']));
 }
 
