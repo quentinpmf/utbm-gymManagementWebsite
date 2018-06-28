@@ -27,6 +27,13 @@ if($data = $req->fetch())
     $image = $data['image'];
     $texte = $data['description'];
 }
+else
+{
+    $date = null;
+    $titre = null;
+    $image = null;
+    $texte = null;
+}
 ?>
 
 <body>
