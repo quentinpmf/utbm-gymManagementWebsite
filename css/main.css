@@ -3001,8 +3001,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* =================================== Actualités =================================== */
 
 #actus {
-  padding-top:50px;
-  padding-bottom:50px;
+  padding-top:30px;
+  padding-bottom:15px;
   align-content: center;
   align-items: center;
 }
