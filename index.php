@@ -75,7 +75,7 @@
                         echo '</div >';
                     }
                     ?>
-                    <a href="php/accueil/actualites_affichage.php"><button style="margin-top : 40px; background-color:#3B5FAB;color:#FFFFFF;padding:10px 0 10px 0;font:Bold 13px Arial;width:150px;border-radius:2px;border:none" value="toutes_les_actus">Toutes les actus</button></a>
+                    <a href="php/accueil/actualites_liste.php"><button style="margin-top : 40px; background-color:#3B5FAB;color:#FFFFFF;padding:10px 0 10px 0;font:Bold 13px Arial;width:150px;border-radius:2px;border:none" value="toutes_les_actus">Toutes les actus</button></a>
                 </div>
             </div>
         </section>
