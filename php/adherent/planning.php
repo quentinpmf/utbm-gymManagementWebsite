@@ -4,14 +4,14 @@
 <?php
 //config
 include "../login/connectToBDD/conn.php";
-include '../../includes/checkIfRole/checkIfAdmin.php';
+include '../../includes/checkIfRole/checkIfAdherent.php';
 include '../../includes/config.php';
 ?>
 
 <header id="header">
     <?php include '../../includes/banner.php'; ?>
     <?php include '../../includes/menu_distant.php'; ?>
-    <?php include '../../includes/calendar/calendar_admin.php';?>
+    <?php include '../../includes/calendar/calendar_user.php';?>
 </header>
 
 <body>
@@ -61,8 +61,8 @@ include '../../includes/config.php';
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button style="background-color: darkorange" type="button" class="btn btn-default">Modifier</button>
-                        <button type="button" style="background-color: red; color:white" class="btn btn-default btn_calendar_supprimer">Supprimer</button>
+                        <button style="background-color: green;color:white" type="button" class="btn btn-default">S'inscrire</button>
+                        <button style="background-color: red;color:white" type="button" class="btn btn-default">Se désinscrire</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>

@@ -33,6 +33,7 @@
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                         $.ajax({
                             url: "../../includes/calendar/insert.php",
+                            //TODO : changer insert avec nouvelle champs bdd
                             type: "POST",
                             data: {title: title, start: start, end: end},
                             success: function () {
@@ -74,6 +75,7 @@
 
                 // suppresion de l'event
                 deleteEvent: function (event) {
+                    alert('ici');
                     if (confirm("Êtes-vous sûr de vouloir le supprimer ?")) {
                         var id = event.id;
                         $.ajax({
@@ -90,14 +92,27 @@
                 //affichage de l'evenement au clic
                 eventClick:  function(event, jsEvent, view) {
                     console.log('event',event);
-                    $('#modalTitle').html(event.title);
-                    $('.popup-calendar-nb_inscrit').html(event.nombre_inscrit);
-                    $('#modalBody').html(event.description);
+                    $('#modalTitle').html(event.title+" ("+getFormattedDateInHoursMinutes(event.start)+"-"+getFormattedDateInHoursMinutes(event.end)+")");
+                    $('.popup-calendar-coach').html("Coach : "+event.prenom_coach);
+                    $('.popup-calendar-description').html(event.description);
+                    $('.popup-calendar-nb_inscrits').html(event.nb_inscrits+" / "+event.nb_max);
                     $('#eventUrl').attr('href',event.url);
                     $('#calendarModal').modal();
-                },
+                }
 
             });
         });
+
+        //retourne la date au format hh/mm
+        function getFormattedDateInHoursMinutes(date) {
+            var newdate = new Date(date);
+            if(newdate.getMinutes() == "0") {
+                var minutes = "00";
+            }
+            else {
+                var minutes = newdate.getMinutes();
+            }
+            return newdate.getHours()+":"+minutes;
+        }
     </script>
 </html>

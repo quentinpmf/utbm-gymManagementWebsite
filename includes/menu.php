@@ -23,6 +23,7 @@
                                     <li><a href="../projetTA70/php/adherent/cours.php">Mes cours</a></li>
                                     <li><a href="../projetTA70/php/adherent/factures.php">Mes factures</a></li>
                                     <li><a href="../projetTA70/php/adherent/abonnement.php">Mon abonnement</a></li>
+                                    <li><a href="../projetTA70/php/adherent/planning.php">Planning</a></li>
                                 </ul>
                             </li>
                             <?php

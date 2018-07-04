@@ -12,8 +12,8 @@
 
     <script>
         $(document).ready(function () {
-            var calendar_public = $('#calendar_public').fullCalendar({
-                editable: false,
+            var calendar = $('#calendar').fullCalendar({
+                editable: true,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -23,7 +23,7 @@
                 defaultView:'agendaWeek',
                 locale: 'fr',
                 lang: 'fr',
-                events: 'includes/calendar/load.php',
+                events: '../../includes/calendar/load.php',
                 selectable: false,
                 selectHelper: false,
                 select: function (start, end, allDay) {
@@ -32,11 +32,11 @@
                         var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                         $.ajax({
-                            url: "includes/calendar/insert.php",
+                            url: "../../includes/calendar/insert.php",
                             type: "POST",
                             data: {title: title, start: start, end: end},
                             success: function () {
-                                calendar_public.fullCalendar('refetchEvents');
+                                calendar.fullCalendar('refetchEvents');
                             }
                         })
                     }
@@ -48,11 +48,11 @@
                     var title = event.title;
                     var id = event.id;
                     $.ajax({
-                        url: "includes/calendar/update.php",
+                        url: "../../includes/calendar/update.php",
                         type: "POST",
                         data: {title: title, start: start, end: end, id: id},
                         success: function () {
-                            calendar_public.fullCalendar('refetchEvents');
+                            calendar.fullCalendar('refetchEvents');
                         }
                     })
                 },
@@ -63,13 +63,28 @@
                     var title = event.title;
                     var id = event.id;
                     $.ajax({
-                        url: "includes/calendar/update.php",
+                        url: "../../includes/calendar/update.php",
                         type: "POST",
                         data: {title: title, start: start, end: end, id: id},
                         success: function () {
-                            calendar_public.fullCalendar('refetchEvents');
+                            calendar.fullCalendar('refetchEvents');
                         }
                     });
+                },
+
+                // suppresion de l'event
+                deleteEvent: function (event) {
+                    if (confirm("Êtes-vous sûr de vouloir le supprimer ?")) {
+                        var id = event.id;
+                        $.ajax({
+                            url: "../../includes/calendar/delete.php",
+                            type: "POST",
+                            data: {id: id},
+                            success: function () {
+                                calendar.fullCalendar('refetchEvents');
+                            }
+                        })
+                    }
                 },
 
                 //affichage de l'evenement au clic
@@ -84,18 +99,18 @@
                 }
 
             });
-
-            //retourne la date au format hh/mm
-            function getFormattedDateInHoursMinutes(date) {
-                var newdate = new Date(date);
-                if(newdate.getMinutes() == "0") {
-                    var minutes = "00";
-                }
-                else {
-                    var minutes = newdate.getMinutes();
-                }
-                return newdate.getHours()+":"+minutes;
-            }
         });
+
+        //retourne la date au format hh/mm
+        function getFormattedDateInHoursMinutes(date) {
+            var newdate = new Date(date);
+            if(newdate.getMinutes() == "0") {
+                var minutes = "00";
+            }
+            else {
+                var minutes = newdate.getMinutes();
+            }
+            return newdate.getHours()+":"+minutes;
+        }
     </script>
 </html>
