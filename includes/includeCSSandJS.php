@@ -44,4 +44,15 @@
     <script src="<?php echo ROOT_DIR ?>/js/jquery.counterup.min.js"></script>
     <script src="<?php echo ROOT_DIR ?>/js/mail-script.js"></script>
     <script src="<?php echo ROOT_DIR ?>/js/main.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121435086-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121435086-1');
+    </script>
+
 </head>

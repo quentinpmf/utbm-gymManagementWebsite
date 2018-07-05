@@ -2237,6 +2237,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .section-gap {
+  padding: 20px 0;
+}
+
+.section-gap-other-pages {
   padding: 120px 0;
 }
 
@@ -2331,7 +2335,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-area {
-  background: url(../img/header-bg.jpg) center;
+  background: url(../img/club.gif) center;
   background-size: cover;
 }
 
@@ -2992,4 +2996,59 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .switch-wrap p {
   margin: 0;
+}
+
+/* =================================== Actualités =================================== */
+
+#actus {
+  padding-top:30px;
+  padding-bottom:15px;
+  align-content: center;
+  align-items: center;
+}
+
+.imgActualites{
+  border-right: 1px solid white;
+}
+.dateActualites
+{
+  font-size:12px;
+  color:#3B5FAB;
+}
+h1
+{
+  font-size:20px;
+  color: #b93640;
+}
+.texteActualites
+{
+  font-size:12px;
+  word-wrap: break-word;
+}
+
+.tableAfficherActualites img {
+  max-width: 50%;
+  height: auto;
+}
+
+.trBordure{
+  border:1px solid black;
+}
+
+.cubeActuAccueil{
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* =================================== Autres =================================== */
+.border-black
+{
+  border-top:2px solid black;
+}
+
+/* =================================== Header Factures =================================== */
+.tableauFactures th {
+  background-color: #3B5FAB;
+  color: white;
 }
